@@ -147,7 +147,11 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Banner.cshtml" />
+    <Content Include="Views\Home\Benefits.cshtml" />
+    <Content Include="Views\Home\NewProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -159,7 +163,6 @@
     <Folder Include="Content\Images\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Product\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202511111031295_ThemBangLucDau_DaSuaLoi.resx">
