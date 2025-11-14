@@ -15,5 +15,35 @@ namespace BanDoGiaDung.Controllers
         {
             return View();
         }
+
+        public ActionResult Banner()
+        {
+            return View();
+        }
+
+        public ActionResult Benefits()
+        {
+            return View();
+        }
+
+        public ActionResult NewProducts()
+        {
+            var list = db.Products
+                 .OrderByDescending(x => x.create_at)
+                 .Take(10)
+                 .ToList();
+
+            return PartialView(list);
+        }
+
+        public ActionResult Categories()
+        {
+            return View();
+        }
+
+        public ActionResult BestSeller()
+        {
+            return View();
+        }
     }
 }
