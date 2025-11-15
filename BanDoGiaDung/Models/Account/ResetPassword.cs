@@ -8,6 +8,10 @@ namespace BanDoGiaDung.Models.Account
 {
     public class ResetPassword
     {
+        [Required(ErrorMessage = "Nhập email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Nhập mật khẩu mới", AllowEmptyStrings = false)]
         [StringLength(100, ErrorMessage = "Mật khẩu tổi thiếu 6 ký tự", MinimumLength = 6)]
         [DataType(DataType.Password)]

@@ -152,6 +152,10 @@
     <Content Include="Views\Home\Banner.cshtml" />
     <Content Include="Views\Home\Benefits.cshtml" />
     <Content Include="Views\Home\NewProducts.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -161,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>

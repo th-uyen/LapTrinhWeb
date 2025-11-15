@@ -1,0 +1,49 @@
+﻿@model BanDoGiaDung.Models.Accounts
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+
+<h3 class="text-center mt-4 fw-bold">Thông tin tài khoản</h3>
+@{
+    string textRole = "";
+
+    switch (Model.Role)
+    {
+        case 0: textRole = "Admin"; break;
+        case 1: textRole = "User"; break;
+        case 2: textRole = "Mod"; break;
+    }
+}
+<tr>
+    <th>Quyền</th>
+    <td>@textRole</td>
+</tr>
+
+
+<div class="container mt-4">
+    <table class="table table-bordered">
+        <tr>
+            <th>Họ tên</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Model.Phone</td>
+        </tr>
+        <tr>
+            <th>Quyền</th>
+            <td>@Model.Role</td>
+        </tr>
+    </table>
+
+
+    <a href="/Account/ChangePassword" class="btn btn-warning">Đổi mật khẩu</a>
+</div>

@@ -184,8 +184,20 @@
             <div class="d-flex align-items-center gap-4">
                 <div><i class="bi bi-telephone"></i> <b>1900636925</b></div>
                 <div><i class="bi bi-envelope"></i> <b>cskh@elmich.vn</b></div>
-                <div><i class="bi bi-person"></i> Đăng nhập</div>
                 <div><i class="bi bi-cart"></i> Giỏ hàng</div>
+                <div>
+                    @if (Session["UserName"] != null)
+                    {
+                        <span>Xin chào <strong>@Session["UserName"]</strong></span>
+                        <a href="/Account/Profile" class="ms-2">Hồ sơ</a>
+                        <a href="/Account/Logout" class="ms-2 text-danger">Đăng xuất</a>
+                    }
+                    else
+                    {
+                        <a href="/Account/Login">Đăng nhập</a>
+                    }
+
+                </div>
             </div>
 
         </div>
