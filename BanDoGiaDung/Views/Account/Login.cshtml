@@ -17,17 +17,17 @@
                 {
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Email)
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập email..." })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Type your email..." })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
                     </div>
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Password)
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu..." })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Type your password..." })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
                     </div>
 
-                    <button class="btn btn-success w-100">Đăng nhập</button>
+                    <button class="btn btn-success w-100">Login</button>
                 }
 
                 <div class="text-center mt-3">

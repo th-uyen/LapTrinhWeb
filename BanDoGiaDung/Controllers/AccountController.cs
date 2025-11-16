@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace BanDoGiaDung.Controllers
@@ -58,7 +59,7 @@ namespace BanDoGiaDung.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(Register model)
+        public ActionResult Register(RegisterViewModels model)
         {
             if (!ModelState.IsValid)
             {
@@ -75,17 +76,18 @@ namespace BanDoGiaDung.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
-                password = model.password,
-                Phone = model.Phone,
+                password = Crypto.Hash(model.Password),
+                Phone = model.PhoneNumber,
                 Role = 1
             };
 
+            db.Configuration.ValidateOnSaveEnabled = false;
             db.Accounts.Add(acc);
             db.SaveChanges();
 
-            ViewBag.ThongBao = "Đăng ký thành công!";
+            TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]

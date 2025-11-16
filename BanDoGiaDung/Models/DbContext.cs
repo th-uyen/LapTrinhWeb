@@ -32,6 +32,7 @@ namespace BanDoGiaDung.Models
         public virtual DbSet<ReplyFeedback> ReplyFeedbacks { get; set; }
         public virtual DbSet<Wards> Wards { get; set; }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>()

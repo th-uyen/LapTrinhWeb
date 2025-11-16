@@ -1,0 +1,13 @@
+﻿.nen-gradient {
+    /* Hướng đi của màu: 'to right' (từ trái qua phải) */
+    /* Màu bắt đầu: blue (xanh dương) */
+    /* Màu kết thúc: red (đỏ) */
+    background-image: linear-gradient(to right, blue, red);
+    /* Thêm mấy cái này để bà thấy rõ hơn */
+    width: 100%;
+    height: 200px; /* Bà đổi chiều cao tùy ý */
+    color: white; /* Đổi màu chữ thành trắng cho dễ đọc */
+    text-align: center;
+    padding-top: 80px; /* Căn chữ ra giữa cho đẹp */
+    font-size: 24px;
+}

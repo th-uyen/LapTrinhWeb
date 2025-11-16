@@ -184,7 +184,7 @@
             <div class="d-flex align-items-center gap-4">
                 <div><i class="bi bi-telephone"></i> <b>1900636925</b></div>
                 <div><i class="bi bi-envelope"></i> <b>cskh@elmich.vn</b></div>
-                <div><i class="bi bi-cart"></i> Giỏ hàng</div>
+                <div><i class="bi bi-cart "></i> Giỏ hàng</div>
                 <div>
                     @if (Session["UserName"] != null)
                     {
@@ -248,7 +248,8 @@
                 <a href="#">Chăn - Ga - Gối</a>
                 <a href="#">Bảo hành</a>
                 <a href="#">Hệ thống cửa hàng</a>
-                <a href="#">Tin tức</a>
+                <a class="nav-link" href="@Url.Action("TinTuc", "News")">Tin tức</a>
+
             </div>
 
         </div>
