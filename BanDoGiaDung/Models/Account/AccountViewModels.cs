@@ -79,9 +79,9 @@ namespace BanDoGiaDung.Models.Account
         [DisplayName("Giới tính")]
         public bool Gender { get; set; }
 
-        [Required(ErrorMessage = "Nhập ngày sinh")]
-        [DisplayName("Ngày sinh")]
-        public DateTime DateOfBirth { get; set; }
+        //[Required(ErrorMessage = "Nhập ngày sinh")]
+        //[DisplayName("Ngày sinh")]
+        //public DateTime DateOfBirth { get; set; }
 
         public HttpPostedFileBase ImageUpload { get; set; }
     }

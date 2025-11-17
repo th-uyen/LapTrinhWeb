@@ -182,7 +182,53 @@ namespace BanDoGiaDung.Controllers
 
             var user = db.Accounts.FirstOrDefault(x => x.account_id == id);
 
+            var viewModel = new EditProfileViewModels
+            {
+                Name = user.Name,
+                Email = user.Email, // Để email ở đây cho người ta xem
+                PhoneNumber = user.Phone,
+                Avatar = user.Avatar
+            };
+
             return View(user);
+        }
+
+        // [POST] PROFILE - HÀM LƯU THAY ĐỔI
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Profile(EditProfileViewModels model)
+        {
+            // Check 1: Bắt buộc đăng nhập
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            // Check 2: Kiểm tra validation (như [Required]...)
+            if (!ModelState.IsValid)
+            {
+                return View(model); // Lỗi thì trả về, báo lỗi
+            }
+
+            // Lấy ID từ Session và tìm lại user
+            int id = (int)Session["UserID"];
+            var userToUpdate = db.Accounts.Find(id);
+
+            // Cập nhật thông tin từ model (form) vào user (database)
+            userToUpdate.Name = model.Name;
+            userToUpdate.Phone = model.PhoneNumber;
+            userToUpdate.update_at = DateTime.Now; // Cập nhật ngày
+            userToUpdate.update_by = userToUpdate.Email;
+
+            // (Code xử lý Upload file Avatar thì phức tạp hơn, mình sẽ làm sau)
+
+            // Lưu thay đổi xuống database
+            db.SaveChanges();
+
+            // Cập nhật lại Session["UserName"] nếu họ đổi tên
+            Session["UserName"] = userToUpdate.Name;
+
+            // Gửi thông báo thành công và tải lại trang
+            TempData["SuccessMessage"] = "Cập nhật hồ sơ thành công!";
+            return RedirectToAction("Profile");
         }
 
     }

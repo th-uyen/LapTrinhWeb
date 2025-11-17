@@ -1,0 +1,35 @@
+﻿<div class="col-sm-12 col-md-3 col-lg-3">
+    <!-- Nav tabs -->
+    <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
+        <ul role="tablist" class="nav flex-column dashboard-list">
+            <li>
+                <a href="@Url.Action("Profile","Account")" class="nav-link btn-block  btn-green-default-hover mt-4 fw-bold @(ViewContext.RouteData.Values["Action"].ToString() == "Profile" ? "active" :"")">Thông tin Tài Khoản</a>
+            </li>
+            @*<li>
+                <a href="@Url.Action("TrackingOrder","Account")" class="nav-link btn btn-block btn-md btn-black-default-hover @(ViewContext.RouteData.Values["Action"].ToString() == "TrackingOrder" ? "active" : ViewContext.RouteData.Values["Action"].ToString() == "TrackingOrderDetail" ? "active" :"")">Lịch sử mua hàng</a>
+            </li>
+            <li>
+                <a href="@Url.Action("ChangePassword","Account")" class="nav-link btn btn-block btn-md btn-black-default-hover @(ViewContext.RouteData.Values["Action"].ToString() == "ChangePassword" ? "active" : "")">Đổi mật khẩu</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Address","Account")" class="nav-link btn btn-block btn-md btn-black-default-hover @(ViewContext.RouteData.Values["Action"].ToString() == "Address" ? "active" : "")">Sổ địa Chỉ</a>
+            </li>*@
+            <li>
+                <a href="@Url.Action("Logout","Account")"
+                   class=" nav-link btn2 btn-block btn-md ">Đăng Xuất</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<style>
+    .btn2 {
+        color: #22b50a;
+        font-size: 24px;
+        border: 5px;
+        background-color: green;
+        border-radius: 12px;
+    }
+    .nav-link:hover {
+        background-color: #22b50a;
+    }
+</style>
