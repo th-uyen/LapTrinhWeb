@@ -1,0 +1,80 @@
+﻿@model List<BanDoGiaDung.Models.Product>
+
+<style>
+    .best-wrapper {
+        max-width: 1350px;
+        margin: 40px auto;
+    }
+
+    .best-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #222;
+        margin-bottom: 20px;
+    }
+
+    .best-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 SẢN PHẨM MỖI HÀNG */
+        gap: 20px;
+    }
+
+    .best-item {
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid #eee;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        padding: 12px;
+        transition: .25s;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .best-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        .best-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+    .best-name {
+        font-size: 15px;
+        font-weight: 600;
+        color: #222;
+        height: 40px;
+        overflow: hidden;
+        margin-bottom: 6px;
+    }
+
+    .best-price {
+        font-size: 17px;
+        font-weight: bold;
+        color: #e60000;
+    }
+</style>
+
+
+<div class="best-wrapper">
+    <div class="best-title">SẢN PHẨM BÁN CHẠY</div>
+
+    <div class="best-grid">
+        @foreach (var p in Model)
+        {
+            <div class="best-item">
+                <img src="@p.image" />
+
+                <div class="best-name">@p.product_name</div>
+
+                <div class="best-price">
+                    @String.Format("{0:N0} ₫", p.price)
+                </div>
+            </div>
+        }
+    </div>
+</div>

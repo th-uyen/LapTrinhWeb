@@ -13,6 +13,7 @@ namespace BanDoGiaDung.Controllers
         private readonly GiaDungDbContext db = new GiaDungDbContext();
         public ActionResult Index()
         {
+            ViewBag.Genres = db.Genres.OrderBy(g => g.genre_name).ToList();
             return View();
         }
 
@@ -38,12 +39,19 @@ namespace BanDoGiaDung.Controllers
 
         public ActionResult Categories()
         {
-            return View();
+            return PartialView();
         }
+
 
         public ActionResult BestSeller()
         {
-            return View();
+            var list = db.Products
+                         .OrderByDescending(p => p.buyturn)
+                         .Take(10)
+                         .ToList();
+
+            return PartialView(list);
         }
+
     }
 }
