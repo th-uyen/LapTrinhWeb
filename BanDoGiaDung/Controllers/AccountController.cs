@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace BanDoGiaDung.Controllers
@@ -26,6 +27,7 @@ namespace BanDoGiaDung.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken] // Nhớ thêm cái này
         public ActionResult Login(LoginViewModels model)
         {
             if (!ModelState.IsValid)
@@ -33,22 +35,32 @@ namespace BanDoGiaDung.Controllers
                 return View(model);
             }
 
-            var user = db.Accounts.FirstOrDefault(x => x.Email == model.Email
-                                                    && x.password == model.Password);
+            var user = db.Accounts.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
 
             if (user == null)
             {
-                ViewBag.ThongBao = "Sai email hoặc mật khẩu!";
+                ModelState.AddModelError("", "Sai email hoặc mật khẩu!");
                 return View(model);
             }
-            // Lưu Session
-            Session["UserID"] = user.account_id;   // số
-            Session["UserName"] = user.Name;       // chuỗi
 
-            Session["UserEmail"] = user.Email;
-            Session["Role"] = user.Role;
+            if (Crypto.VerifyHashedPassword( user.password,model.Password))
+            {
+                // === ĐĂNG NHẬP THÀNH CÔNG ===
 
-            return RedirectToAction("Index", "Home");
+                // Lưu Session (Code của bà làm đúng rồi)
+                Session["UserID"] = user.account_id;   // số
+                Session["UserName"] = user.Name;       // chuỗi
+
+                Session["UserEmail"] = user.Email;
+                Session["Role"] = user.Role;
+
+                // Chuyển về trang chủ
+                return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError("", "Sai email hoặc mật khẩu!");
+
+
+            return View(model);
         }
 
         [HttpGet]
@@ -58,14 +70,16 @@ namespace BanDoGiaDung.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(Register model)
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Register(RegisterViewModels model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
-            var check = db.Accounts.FirstOrDefault(x => x.Email == model.Email);
+            // Thêm .ToLower() ở cả 2 vế để nó so sánh chữ thường
+            var check = db.Accounts.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
             if (check != null)
             {
                 ViewBag.ThongBao = "Email đã tồn tại!";
@@ -75,17 +89,18 @@ namespace BanDoGiaDung.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
-                password = model.password,
-                Phone = model.Phone,
+                password = Crypto.HashPassword(model.Password),
+                Phone = model.PhoneNumber,
                 Role = 1
             };
 
+            db.Configuration.ValidateOnSaveEnabled = false;
             db.Accounts.Add(acc);
             db.SaveChanges();
 
-            ViewBag.ThongBao = "Đăng ký thành công!";
+            TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]

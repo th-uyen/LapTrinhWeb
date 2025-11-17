@@ -7,27 +7,36 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
+            
             <div class="card shadow-sm p-4">
 
                 <h4 class="text-center mb-4 fw-bold text-success">
                     🔐 Đăng nhập tài khoản
                 </h4>
-
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
                 @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger small" })
+
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Email)
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập email..." })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Type your email..." })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
                     </div>
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Password)
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu..." })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Type your password..." })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
                     </div>
 
-                    <button class="btn btn-success w-100">Đăng nhập</button>
+                    <button type="submit" class="btn btn-success w-100">Login</button>
                 }
 
                 <div class="text-center mt-3">
@@ -39,3 +48,7 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

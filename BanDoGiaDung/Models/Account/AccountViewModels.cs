@@ -13,7 +13,9 @@ namespace BanDoGiaDung.Models.Account
         [DisplayName("Email")]
         [Required(ErrorMessage = "Nhập Email")]
         [DataType(DataType.EmailAddress)]
+
         public string Email { get; set; }
+
 
         [DisplayName("Mật khẩu")]
         [Required(ErrorMessage = "Nhập mật khẩu")]

@@ -99,14 +99,33 @@
     <Content Include="App_Data\GiaDungDb_log.ldf">
       <DependentUpon>GiaDungDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\News.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="huongdan.txt" />
+    <Content Include="Images\news1.png" />
+    <Content Include="Images\news2.png" />
+    <Content Include="Images\news3.png" />
+    <Content Include="Images\news4.png" />
+    <Content Include="Images\news5.png" />
+    <Content Include="Images\news6.png" />
+    <Content Include="Images\news7-1.png" />
+    <Content Include="Images\news7.png" />
+    <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,6 +133,10 @@
     <Compile Include="Migrations\202511111031295_ThemBangLucDau_DaSuaLoi.cs" />
     <Compile Include="Migrations\202511111031295_ThemBangLucDau_DaSuaLoi.Designer.cs">
       <DependentUpon>202511111031295_ThemBangLucDau_DaSuaLoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202511161326243_SuaLoiDatetimeAccount.cs" />
+    <Compile Include="Migrations\202511161326243_SuaLoiDatetimeAccount.Designer.cs">
+      <DependentUpon>202511161326243_SuaLoiDatetimeAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -142,6 +165,7 @@
     <Compile Include="Models\ReplyFeedback.cs" />
     <Compile Include="Models\Wards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\NewsServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -167,11 +191,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
+    <Folder Include="Scripts\UserJS\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202511111031295_ThemBangLucDau_DaSuaLoi.resx">
       <DependentUpon>202511111031295_ThemBangLucDau_DaSuaLoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202511161326243_SuaLoiDatetimeAccount.resx">
+      <DependentUpon>202511161326243_SuaLoiDatetimeAccount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

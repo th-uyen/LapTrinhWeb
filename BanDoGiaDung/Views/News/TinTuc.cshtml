@@ -1,0 +1,42 @@
+﻿@model List<BanDoGiaDung.Models.NewsArticle>
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    ViewBag.Title = "Tin Tức";
+}
+
+<h1 class="text-center  fw-bold mt-3 mb-4">
+    📰 Tin Tức - Khuyến Mãi
+</h1>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="news-card shadow-sm rounded overflow-hidden" style="cursor:pointer;">
+                <a href="@Url.Action("Details", "News", new { id = item.Id })" style="text-decoration:none; color:black;">
+                    <div class="overflow-hidden" style="height:200px;">
+                        <img src="@item.ImageUrl" class="w-100 h-100" style="object-fit:cover; transition:0.4s;" />
+                    </div>
+                    <div class="p-3">
+                        <h5 class="fw-bold text-dark">@item.Title</h5>
+                        @*<h5 class="text-body-secondary">@item.Content</h5>*@
+                        <p class="text-muted small"><a href="@Url.Action("Details", "News", new { id = item.Id })">Xem chi tiết ➜</a></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    h1 {
+        color: #228B22;
+    }
+    .news-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .news-card:hover {
+        box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+    }
+</style>
