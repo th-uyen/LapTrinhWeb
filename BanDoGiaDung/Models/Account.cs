@@ -41,10 +41,10 @@ namespace BanDoGiaDung.Models
         public string Avatar { get; set; }
         [StringLength(100)]
         public string create_by { get; set; }
-        public DateTime create_at { get; set; }
+        public DateTime? create_at { get; set; }
         [StringLength(100)]
         public string update_by { get; set; }
-        public DateTime update_at { get; set; }
+        public DateTime? update_at { get; set; }
         [StringLength(1)] public string status { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Feedback> Feedbacks { get; set; }
