@@ -16,20 +16,34 @@
             </li>*@
             <li>
                 <a href="@Url.Action("Logout","Account")"
-                   class=" nav-link btn2 btn-block btn-md ">Đăng Xuất</a>
+                   class=" nav-link btn2 btn btn-md ">Đăng Xuất</a>
             </li>
         </ul>
     </div>
 </div>
 <style>
-    .btn2 {
+   /* .btn2 {
         color: #22b50a;
         font-size: 24px;
-        border: 5px;
+        border: 5px dashed;
         background-color: green;
         border-radius: 12px;
+    }*/
+    .btn2 {
+        padding: 10px 15px; /* Khoảng cách bên trong */
+        border: 1px solid transparent; /* Viền mặc định trong suốt */
+        border-color: green;
+        font-size: 24px;
+        border-radius: 12px; /* Bo góc nhẹ nhàng */
+        text-decoration: none;
+        color: green;
+        transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
     }
-    .nav-link:hover {
-        background-color: #22b50a;
-    }
+
+        /* Khi hover, hiện viền màu */
+        .nav-link:hover {
+            border-color: #007BFF; /* Màu xanh hiển thị viền */
+            color: #007BFF; /* Thay đổi màu chữ */
+            background-color: rgba(0, 123, 255, 0.1); /* Màu nền nhẹ */
+        }
 </style>
