@@ -1,0 +1,115 @@
+﻿/* ==================== CONTAINER CHO ASIDE + MAIN ==================== */
+.profile-container {
+    display: flex;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+/* ==================== SIDEBAR (ASIDE) ==================== */
+.sidebar {
+    width: 280px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+}
+
+.dashboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .dashboard-list li {
+        margin-bottom: 12px;
+    }
+
+    /* NAV LINK */
+    .dashboard-list .nav-link {
+        display: block;
+        padding: 14px 16px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+        .dashboard-list .nav-link:hover {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+
+        /* ACTIVE STATE */
+        .dashboard-list .nav-link.active {
+            background: #4caf50;
+            color: white;
+            font-weight: 600;
+        }
+
+/* BUTTON ĐĂNG XUẤT */
+.btn-logout {
+    background: white !important;
+    color: #dc3545 !important;
+    border: 2px solid #dc3545 !important;
+    font-weight: 600 !important;
+}
+
+    .btn-logout:hover {
+        background: #dc3545 !important;
+        color: white !important;
+    }
+
+/* ==================== MAIN CONTENT ==================== */
+.profile-content {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+    .profile-content h3 {
+        color: #2e7d32;
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .card {
+        border: none;
+        box-shadow: none;
+    }
+
+    .profile-content table {
+        margin-bottom: 0;
+    }
+
+        .profile-content table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .profile-content table td {
+            padding: 15px;
+        }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+}
+
+

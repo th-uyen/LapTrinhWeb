@@ -1,0 +1,9 @@
+﻿@* File này để hiển thị cái icon giỏ hàng và số lượng *@
+@* Bà sẽ gọi nó trong _LayoutPage.cshtml *@
+
+<a href="@Url.Action("Index", "Cart")" class="text-decoration-none text-dark">
+    <i class="bi bi-cart"></i>
+    Giỏ hàng
+    <span class="badge bg-danger" id="cart-count">@ViewBag.CartCount</span>
+    (<span id="cart-total">@ViewBag.CartTotal ₫</span>)
+</a>

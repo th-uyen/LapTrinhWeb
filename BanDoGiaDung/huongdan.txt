@@ -1,2 +1,8 @@
 ﻿vì đã sửa cái Crypto.Hash thành Crypto.HashPassword nên tất cả tài khoản cũ mật khẩu k còn
 sài đc nữa, bắt buộc tạo lại các khác kể cả admin 
+
+dùng jqurey đỡ load lại trang , gàng buộc giá trị nhập: "Đỡ load lại trang" chính là lợi ích LỚN NHẤT của 2 file đó.
+Không có 2 file đó: bấm "Lưu", web phải "chạy" lên server, server la "lỗi!", rồi server "load lại cả trang" 
+để báo lỗi => Chậm, giật.
+Có 2 file đó: Bà bấm "Lưu", 2 file JS này nó "chặn" lại ngay trên trình duyệt (client) 
+của bà, nó la "lỗi!" Không cần load lại trang.

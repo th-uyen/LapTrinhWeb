@@ -99,6 +99,7 @@
     <Content Include="App_Data\GiaDungDb_log.ldf">
       <DependentUpon>GiaDungDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Account\Dasbroad_Profile.css" />
     <Content Include="Content\News.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -112,6 +113,7 @@
     <Content Include="Images\news7-1.png" />
     <Content Include="Images\news7.png" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\cart-ajax.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -124,6 +126,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="Models\Account\Register.cs" />
     <Compile Include="Models\Account\ResetPassword.cs" />
     <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\Cart\CartItem.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\Delivery.cs" />
@@ -185,6 +189,8 @@
     <Content Include="Views\Account\Dasboard.cshtml" />
     <Content Include="Views\Home\Categories.cshtml" />
     <Content Include="Views\Home\BestSeller.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\_CartSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

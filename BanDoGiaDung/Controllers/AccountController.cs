@@ -106,33 +106,57 @@ namespace BanDoGiaDung.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            return View();
+            // Check 1: Bắt buộc đăng nhập
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            // Tạo 1 model rỗng để truyền ra View
+            var model = new ChangePasswordViewModels();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(ChangePassword model)
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModels model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            string email = Session["UserEmail"]?.ToString();
-
-            if (email == null)
+            // Check 1: Bắt buộc đăng nhập
+            if (Session["UserID"] == null)
                 return RedirectToAction("Login");
 
-            var user = db.Accounts.FirstOrDefault(x => x.Email == email);
-
-            if (user.password != model.OldPassword)
+            // Check 2: Kiểm tra validation (3 ô có nhập đủ không,
+            // 2 pass mới có khớp không [Compare]...)
+            if (!ModelState.IsValid)
             {
-                ViewBag.ThongBao = "Mật khẩu cũ không đúng!";
-                return View(model);
+                return View(model); // Lỗi thì trả về, báo lỗi
             }
 
-            user.password = model.NewPassword;
-            db.SaveChanges();
+            // Check 3: Check mật khẩu CŨ có đúng không
+            int id = (int)Session["UserID"];
+            var user = db.Accounts.Find(id);
 
-            ViewBag.ThongBao = "Đổi mật khẩu thành công!";
-            return View();
+            // Dùng hàm "Verify" xịn
+            if (Crypto.VerifyHashedPassword(user.password, model.OldPassword))
+            {
+                // === Mật khẩu cũ ĐÚNG ===
+
+                // 4. Băm và lưu mật khẩu MỚI
+                user.password = Crypto.HashPassword(model.NewPassword);
+                user.update_at = DateTime.Now;
+                user.update_by = user.Email;
+
+                db.SaveChanges();
+
+                // 5. Gửi thông báo thành công và đá về trang Profile
+                TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
+                return RedirectToAction("Profile");
+            }
+            else
+            {
+                // === Mật khẩu cũ SAI ===
+                // 6. Báo lỗi
+                ModelState.AddModelError("OldPassword", "Mật khẩu cũ không chính xác.");
+                return View(model);
+            }
         }
 
         // ========================= RESET PASSWORD =========================
@@ -172,6 +196,7 @@ namespace BanDoGiaDung.Controllers
         }
 
 
+        // [GET] PROFILE - HÀM HIỂN THỊ (Bà check lại xem đã sửa chưa)
         [HttpGet]
         public ActionResult Profile()
         {
@@ -179,18 +204,18 @@ namespace BanDoGiaDung.Controllers
                 return RedirectToAction("Login");
 
             int id = (int)Session["UserID"];
+            var user = db.Accounts.Find(id); // 1. Tìm "Kho"
 
-            var user = db.Accounts.FirstOrDefault(x => x.account_id == id);
-
+            // 2. Map từ "Kho" (user) sang "Phiếu" (viewModel)
             var viewModel = new EditProfileViewModels
             {
                 Name = user.Name,
-                Email = user.Email, // Để email ở đây cho người ta xem
+                Email = user.Email,
                 PhoneNumber = user.Phone,
                 Avatar = user.Avatar
             };
 
-            return View(user);
+            return View(viewModel); // 3. Trả "Phiếu" ra View
         }
 
         // [POST] PROFILE - HÀM LƯU THAY ĐỔI

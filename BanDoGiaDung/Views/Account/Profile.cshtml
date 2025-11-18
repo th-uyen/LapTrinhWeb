@@ -1,55 +1,68 @@
-﻿@model BanDoGiaDung.Models.Accounts
-
+﻿@model BanDoGiaDung.Models.Account.EditProfileViewModels
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Hồ Sơ Của Tôi";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
+
+    // Báo cho Sidebar biết là đang ở trang Profile
+    ViewBag.ActivePage = "Profile";
 }
 
+<link href="~/Content/Account/Dasbroad_Profile.css" rel="stylesheet" />
 
+<div class="profile-container">
 
-<h3 class="text-center mt-4 fw-bold">Thông tin tài khoản</h3>
-@{
-    string textRole = "";
+    @Html.Partial("Dasboard") <main class="profile-content">
+        <h3 class="text-center fw-bold mb-4">Thông tin tài khoản</h3>
 
-    switch (Model.Role)
-    {
-        case 0: textRole = "Admin"; break;
-        case 1: textRole = "User"; break;
-        case 2: textRole = "Mod"; break;
-    }
-}
-<tr>
-    <th>Quyền</th>
-    <td>@textRole</td>
-    @Html.Partial("Dasboard")
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
 
-</tr>
+        <div class="card shadow-sm p-4">
 
+            @using (Html.BeginForm("Profile", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-<div class="container mt-4">
-    <table class="table table-bordered">
-        <tr>
-            <th>Họ tên</th>
-            <td>@Model.Name</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>@Model.Email</td>
-        </tr>
-        <tr>
-            <th>Số điện thoại</th>
-            <td>@Model.Phone</td>
-        </tr>
-        <tr>
-            <th>Quyền</th>
-            <td>@Model.Role</td>
-        </tr>
-    </table>
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                </div>
 
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Name, "Họ tên")
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger small" })
+                </div>
 
-    <a href="/Account/ChangePassword" class="btn btn-warning">Đổi mật khẩu</a>
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.PhoneNumber, "Số điện thoại")
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-green ">
+                        <i class="bi bi-pencil-square me-2 "></i> Lưu thay đổi
+                    </button>
+                </div>
+            }
+        </div>
+    </main>
+
 </div>
 
-<section class="wrapper">
-    <h1>hi</h1>
-</section>
+<style>
+    .btn-green {
+        background-color: #4caf50;
+    }
+    .btn-green:hover {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            color: #2e7d32;
+    }
+</style>

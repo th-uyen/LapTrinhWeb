@@ -76,8 +76,8 @@ namespace BanDoGiaDung.Models.Account
         [RegularExpression("^(0)([0-9]{9})$", ErrorMessage = "Số điện thoại phải bắt đầu bằng 0, chứa ký tự số từ (0 -> 9) và đủ 10 chữ số")]
         public string PhoneNumber { get; set; }
 
-        [DisplayName("Giới tính")]
-        public bool Gender { get; set; }
+        //[DisplayName("Giới tính")]
+        //public bool Gender { get; set; }
 
         //[Required(ErrorMessage = "Nhập ngày sinh")]
         //[DisplayName("Ngày sinh")]
