@@ -100,6 +100,8 @@
       <DependentUpon>GiaDungDb.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Account\Dasbroad_Profile.css" />
+    <Content Include="Content\AdminCSS\Layout\_AsideLayout.css" />
+    <Content Include="Content\AdminCSS\Layout\_HeaderLayout.css" />
     <Content Include="Content\News.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -112,10 +114,21 @@
     <Content Include="Images\news6.png" />
     <Content Include="Images\news7-1.png" />
     <Content Include="Images\news7.png" />
-    <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AsideLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_HeaderLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MessageAlert.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_FooterLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Scripts\cart-ajax.js" />
-    <Content Include="Scripts\jquery-1.4.4.js" />
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -125,6 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -183,7 +198,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\News\TinTuc.cshtml" />
     <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\Account\Dasboard.cshtml" />
@@ -199,6 +214,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Scripts\UserJS\" />
     <Folder Include="Views\Product\" />

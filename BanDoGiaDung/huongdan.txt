@@ -6,3 +6,9 @@ Không có 2 file đó: bấm "Lưu", web phải "chạy" lên server, server la
 để báo lỗi => Chậm, giật.
 Có 2 file đó: Bà bấm "Lưu", 2 file JS này nó "chặn" lại ngay trên trình duyệt (client) 
 của bà, nó la "lỗi!" Không cần load lại trang.
+
+File _FooterLayout.cshtml (Chân trang): năm tự động cập nhật.
+File _MessageAlert.cshtml (Thông báo) : dùng Toastr JS và TempData
+File _HeaderLayout.cshtml (Thanh Trên Cùng) : Hiển thị tên Admin (lấy từ Session) và nút Đăng xuất.
+File _AsideLayout.cshtml (Cái Menu Trái - TẠO MỚI)
+File _MainLayout.cshtml (Bộ khung chính) : hứng thông báo lỗi bằng Toastr (hoặc SweetAlert) cho xịn.

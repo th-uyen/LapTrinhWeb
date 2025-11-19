@@ -1,0 +1,66 @@
+﻿@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        toastr.success('@TempData["SuccessMessage"]', 'Thành công!', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+        });
+    </script>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        toastr.error('@TempData["ErrorMessage"]', 'Lỗi!', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 5000
+        });
+    </script>
+}
+
+@if (TempData["WarningMessage"] != null)
+{
+    <script>
+        toastr.warning('@TempData["WarningMessage"]', 'Cảnh báo!', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 4000
+        });
+    </script>
+}
+
+@if (TempData["InfoMessage"] != null)
+{
+    <script>
+        toastr.info('@TempData["InfoMessage"]', 'Thông tin', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+        });
+    </script>
+}
+
+<style>
+    /* Custom Toastr Style */
+    .toast-success {
+        background-color: #51a351 !important;
+    }
+
+    .toast-error {
+        background-color: #bd362f !important;
+    }
+
+    .toast-warning {
+        background-color: #f89406 !important;
+    }
+
+    .toast-info {
+        background-color: #2f96b4 !important;
+    }
+</style>

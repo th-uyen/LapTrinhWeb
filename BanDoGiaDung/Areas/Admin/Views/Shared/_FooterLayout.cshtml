@@ -1,0 +1,30 @@
+﻿<footer class="admin-footer">
+    <div class="footer-content">
+        <p>&copy; <span id="currentYear"></span> BanDoGiaDung Admin. All rights reserved.</p>
+        <p>Developed by <strong>Your Team</strong></p>
+    </div>
+</footer>
+
+<style>
+    .admin-footer {
+        background: white;
+        border-top: 1px solid #e0e0e0;
+        padding: 20px 30px;
+        text-align: center;
+    }
+
+    .footer-content p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #7f8c8d;
+    }
+
+    .footer-content strong {
+        color: #2c3e50;
+    }
+</style>
+
+<script>
+    // Tự động cập nhật năm hiện tại
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>

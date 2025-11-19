@@ -198,7 +198,7 @@ namespace BanDoGiaDung.Controllers
 
         // [GET] PROFILE - HÀM HIỂN THỊ (Bà check lại xem đã sửa chưa)
         [HttpGet]
-        public ActionResult Profile()
+        public ActionResult EditProfile()
         {
             if (Session["UserID"] == null)
                 return RedirectToAction("Login");
@@ -221,7 +221,7 @@ namespace BanDoGiaDung.Controllers
         // [POST] PROFILE - HÀM LƯU THAY ĐỔI
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Profile(EditProfileViewModels model)
+        public ActionResult EditProfile(EditProfileViewModels model)
         {
             // Check 1: Bắt buộc đăng nhập
             if (Session["UserID"] == null)

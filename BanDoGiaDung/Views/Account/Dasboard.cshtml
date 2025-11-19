@@ -3,7 +3,7 @@
         <ul role="tablist" class="nav flex-column dashboard-list">
             <li>
                 <a href="@Url.Action("Profile","Account")"
-                   class="nav-link btn-green @(ViewContext.RouteData.Values["Action"].ToString() == "Profile" ? "active" : "")">
+                   class="nav-link btn-green @(ViewContext.RouteData.Values["Action"].ToString() == "EditProfile" ? "active" : "")">
                     <i class="bi bi-person-circle me-2"></i> Thông tin Tài Khoản
                 </a>
             </li>
