@@ -1,0 +1,153 @@
+﻿@model BanDoGiaDung.Models.Discount
+@{
+    ViewBag.Title = "Thêm chương trình giảm giá";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayout.cshtml";
+}
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
+<div class="discount-form">
+
+    <div class="page-header mb-4">
+        <h4><i class="bi bi-plus-circle me-2"></i>Thêm chương trình giảm giá</h4>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            @using (Html.BeginForm("Create", "Discount", FormMethod.Post, new { area = "Admin" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                <div class="row">
+
+                    <!-- TÊN CHƯƠNG TRÌNH -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Tên chương trình <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_name, new
+                        {
+                            @class = "form-control",
+                            placeholder = "VD: Giảm 500.000đ từ 18-02-2022 => 25-02-2022"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- NGÀY BẮT ĐẦU -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngày bắt đầu <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_star, "{0:yyyy-MM-dd}", new
+                        {
+                            @class = "form-control",
+                            type = "date"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_star, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- NGÀY KẾT THÚC -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngày kết thúc <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_end, "{0:yyyy-MM-dd}", new
+                        {
+                            @class = "form-control",
+                            type = "date"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_end, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- MỨC GIẢM GIÁ -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mức giảm giá (VNĐ) <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_price, new
+                        {
+                            @class = "form-control",
+                            type = "number",
+                            min = "0",
+                            step = "1000",
+                            placeholder = "500000"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_price, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- SỐ LƯỢNG -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Số lượng <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.quantity, new
+                        {
+                            @class = "form-control",
+                            type = "number",
+                            min = "0",
+                            placeholder = "1000"
+                        })
+                        @Html.ValidationMessageFor(m => m.quantity, "", new { @class = "text-danger" })
+                        <small class="text-muted">Số lượng mã giảm giá có thể sử dụng</small>
+                    </div>
+
+                    <!-- MÃ GIẢM GIÁ -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Mã giảm giá (Code)</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.discount_code, new
+                            {
+                                @class = "form-control",
+                                placeholder = "VD: 2222, HNQ3000",
+                                id = "discount_code"
+                            })
+                            <button type="button" class="btn btn-outline-secondary" id="btnGenerateCode">
+                                <i class="bi bi-arrow-repeat me-1"></i> Tạo mã
+                            </button>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.discount_code, "", new { @class = "text-danger" })
+                        <small class="text-muted">Để trống nếu không dùng mã</small>
+                    </div>
+
+                </div>
+
+                <div class="form-actions mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-lg me-2"></i>Lưu chương trình
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="bi bi-x-lg me-2"></i>Hủy
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .discount-form .card {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+    }
+</style>
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    <script>
+        // TẠO MÃ GIẢM GIÁ NGẪU NHIÊN
+        $('#btnGenerateCode').click(function () {
+            var code = 'HNQ' + Math.floor(Math.random() * 10000);
+            $('#discount_code').val(code);
+        });
+    </script>
+}

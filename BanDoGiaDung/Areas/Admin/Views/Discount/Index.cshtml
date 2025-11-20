@@ -1,0 +1,372 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+
+@model IPagedList<BanDoGiaDung.Models.Discount>
+@{
+    ViewBag.Title = "Chương trình giảm giá";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayout.cshtml";
+}
+
+
+<div class="discount-page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <div class="header-left">
+            <h4><i class="bi bi-percent me-2"></i>Chương trình giảm giá</h4>
+        </div>
+        <div class="header-right">
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-2"></i>Thêm mới
+            </a>
+        </div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    
+
+    <div class="search-bar mb-4">
+        <form method="get" class="row g-3">
+
+            <!-- Tìm theo tên -->
+            <div class="col-md-3">
+                <input type="text" name="search" class="form-control"
+                       placeholder="Tìm theo tên..."
+                       value="@Request["search"]">
+            </div>
+
+            <!-- Tìm theo code -->
+            <div class="col-md-3">
+                <input type="text" name="code" class="form-control"
+                       placeholder="Tìm theo mã code..."
+                       value="@Request["code"]">
+            </div>
+
+            <!-- Lọc theo trạng thái -->
+            <div class="col-md-3">
+                @Html.DropDownList("status", new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Tất cả trạng thái", Value = "" },
+                    new SelectListItem { Text = "Đang hoạt động", Value = "active" },
+                    new SelectListItem { Text = "Đã hết hạn", Value = "expired" },
+                    new SelectListItem { Text = "Sắp diễn ra", Value = "upcoming" },
+                    new SelectListItem { Text = "Hết lượt", Value = "soldout" }
+                },
+                new { @class = "form-select" })
+            </div>
+
+            <!-- Sắp xếp -->
+            <div class="col-md-3">
+                @Html.DropDownList("sortOrder", new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Sắp xếp mặc định", Value = "" },
+                    new SelectListItem { Text = "Tên (A → Z)", Value = "name" },
+                    new SelectListItem { Text = "Mức giảm cao → thấp", Value = "price" },
+                    new SelectListItem { Text = "Số lượng nhiều → ít", Value = "quantity" }
+                },
+                new { @class = "form-select", onchange = "this.form.submit();" })
+            </div>
+
+            <!-- Nút tìm kiếm -->
+            <div class="col-md-12 text-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Lọc dữ liệu
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Xóa lọc</a>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- TABLE -->
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th width="80">ID</th>
+                            <th>TÊN CHƯƠNG TRÌNH</th>
+                            <th width="150">MỨC GIẢM</th>
+                            <th width="130">CODE GIẢM GIÁ</th>
+                            <th width="100" class="text-center">SỐ LƯỢNG</th>
+                            <th width="180">NGÀY TẠO</th>
+                            <th width="120">TRẠNG THÁI</th>
+                            <th width="150">HÀNH ĐỘNG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><strong>@item.disscount_id</strong></td>
+                                    <td>
+                                        <strong>@item.discount_name</strong>
+                                        <br />
+                                        <small class="text-muted">
+                                            @item.discount_star.ToString("dd/MM/yyyy")
+                                            → @item.discount_end.ToString("dd/MM/yyyy")
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="text-success fw-bold">
+                                            @item.discount_price.ToString("N0")đ
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.discount_code))
+                                        {
+                                            <span class="badge bg-warning">@item.discount_code</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge @(item.quantity > 0 ? "bg-success" : "bg-danger")">
+                                            @item.quantity
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <small>@item.create_at.ToString("HH:mm dd-MM-yyyy")</small>
+                                    </td>
+
+                                    <td>
+
+
+                                        @{
+                                            var now = DateTime.Now;
+                                            string statusLabel = "";
+                                            string statusClass = "";
+
+                                            if (item.quantity <= 0)
+                                            {
+                                                statusLabel = "Hết lượt";
+                                                statusClass = "badge bg-danger"; // Màu đỏ
+                                            }
+                                            else if (item.discount_end < now)
+                                            {
+                                                statusLabel = "Đã hết hạn";
+                                                statusClass = "badge bg-secondary"; // Màu xám
+                                            }
+                                            else if (item.discount_star > now)
+                                            {
+                                                statusLabel = "Sắp diễn ra";
+                                                statusClass = "badge bg-warning text-dark"; // Màu vàng
+                                            }
+                                            else
+                                            {
+                                                statusLabel = "Đang hoạt động";
+                                                statusClass = "badge bg-success"; // Màu xanh lá
+                                            }
+                                        }
+                                        <span class="@statusClass">@statusLabel</span>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="@Url.Action("Edit", new { id = item.disscount_id })"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="Chỉnh sửa">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button class="btn btn-sm btn-outline-danger btn-delete"
+                                                    data-id="@item.disscount_id"
+                                                    data-name="@item.discount_name"
+                                                    title="Xóa">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                        <br />
+                                        <span class="badge @item.discount_code mt-1">
+                                            @item.discount_code
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <i class="bi bi-inbox" style="font-size: 48px; color: #ddd;"></i>
+                                    <p class="text-muted mt-3">Chưa có chương trình giảm giá nào</p>
+                                    <a href="@Url.Action("Create")" class="btn btn-primary">
+                                        <i class="bi bi-plus-lg me-2"></i>Tạo chương trình đầu tiên
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+                <!-- PHÂN TRANG Ở ĐÂY -->
+                <div class="d-flex justify-content-center mt-4">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }))
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<style>
+    /* 1. Cài đặt cho cái khung bao ngoài (ul) */
+    .pagination {
+        display: flex;
+        list-style: none !important; /* Xóa dấu chấm tròn */
+        padding: 0;
+        margin: 20px 0;
+        gap: 6px; /* Khoảng cách giữa các ô số */
+        justify-content: center; /* Căn giữa */
+    }
+
+        /* 2. Cài đặt cho từng ô số (thẻ a và thẻ span) */
+        .pagination li a, .pagination li span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 35px; /* Độ rộng tối thiểu để ô vuông đẹp */
+            height: 35px; /* Chiều cao */
+            padding: 0 5px;
+            color: #5e6278; /* Màu chữ xám đậm */
+            background-color: #fff; /* Nền trắng */
+            border: 1px solid #e1e3ea; /* Viền xám nhạt (QUAN TRỌNG) */
+            border-radius: 6px; /* Bo góc */
+
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            /* 3. Hiệu ứng khi rê chuột vào (Hover) */
+            .pagination :hover {
+                background-color: #f1faff; /* Nền hơi xanh nhạt */
+                color: #009ef7; /* Chữ xanh dương */
+                border-color: #009ef7; /* Viền xanh dương */
+            }
+
+        /* 4. Trạng thái trang ĐANG CHỌN (Active) - Màu xanh */
+        .pagination .active span,
+        .pagination .active a,
+        .pagination .active .page-link {
+            background-color: #009ef7 !important; /* Nền xanh dương */
+            color: #ffffff !important; /* Chữ trắng */
+            border-color: #009ef7 !important; /* Viền xanh */
+            z-index: 3; /* Đè lên các thành phần khác */
+        }
+
+        /* 5. Trạng thái Vô hiệu hóa (Disabled - ví dụ đang trang 1 thì nút Prev mờ đi) */
+        .pagination .disabled span {
+            color: #a1a5b7;
+            background-color: #eff2f5;
+            border-color: #eff2f5;
+            cursor: not-allowed;
+        }
+
+
+
+    
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+        .page-header h4 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+    .search-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border: none;
+    }
+
+    .table thead th {
+        background: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 15px;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .table tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 5px;
+    }
+</style>
+
+@section scripts {
+    <script>
+    $(document).ready(function() {
+        // XÓA CHƯƠNG TRÌNH GIẢM GIÁ
+        $('.btn-delete').click(function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+
+            if (confirm('Bạn có chắc muốn xóa chương trình "' + name + '"?')) {
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Có lỗi xảy ra!');
+                    }
+                });
+            }
+        });
+    });
+    </script>
+}
+

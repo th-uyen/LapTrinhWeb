@@ -1,0 +1,114 @@
+﻿@model BanDoGiaDung.Models.Discount
+@{
+    ViewBag.Title = "Chỉnh sửa chương trình giảm giá";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayout.cshtml";
+}
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+<div class="discount-form">
+
+    <div class="page-header mb-4">
+        <h4><i class="bi bi-pencil-square me-2"></i>Chỉnh sửa chương trình giảm giá</h4>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            @using (Html.BeginForm("Edit", "Discount", FormMethod.Post, new { area = "Admin" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.disscount_id)
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                <div class="row">
+
+                    <!-- TÊN CHƯƠNG TRÌNH -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Tên chương trình <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_name, new
+                        {
+                            @class = "form-control",
+                            placeholder = "VD: Giảm 500.000đ từ 18-02-2022 => 25-02-2022"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- NGÀY BẮT ĐẦU -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngày bắt đầu <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_star, "{0:yyyy-MM-dd}", new
+                        {
+                            @class = "form-control",
+                            type = "date"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_star, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- NGÀY KẾT THÚC -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngày kết thúc <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_end, "{0:yyyy-MM-dd}", new
+                        {
+                            @class = "form-control",
+                            type = "date"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_end, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- MỨC GIẢM GIÁ -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mức giảm giá (VNĐ) <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.discount_price, new
+                        {
+                            @class = "form-control",
+                            type = "number",
+                            min = "0",
+                            step = "1000"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_price, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- SỐ LƯỢNG -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Số lượng <span class="text-danger">*</span></label>
+                        @Html.TextBoxFor(m => m.quantity, new
+                        {
+                            @class = "form-control",
+                            type = "number",
+                            min = "0"
+                        })
+                        @Html.ValidationMessageFor(m => m.quantity, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- MÃ GIẢM GIÁ -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Mã giảm giá (Code)</label>
+                        @Html.TextBoxFor(m => m.discount_code, new
+                        {
+                            @class = "form-control",
+                            placeholder = "VD: 2222, NVT3000"
+                        })
+                        @Html.ValidationMessageFor(m => m.discount_code, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="form-actions mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-lg me-2"></i>Cập nhật
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="bi bi-x-lg me-2"></i>Hủy
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+}

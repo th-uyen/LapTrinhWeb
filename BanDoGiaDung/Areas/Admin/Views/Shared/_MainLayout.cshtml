@@ -51,11 +51,53 @@
                 margin-left: 0;
             }
         }*@
+
+
+        tr:hover {
+            background-color: #f6fcff;
+        }
+
+        /* --- THÊM CSS CO GIÃN MENU VÀO ĐÂY --- */
+
+        #toggle_aside:checked ~ .admin-wrapper .admin-sidebar {
+            width: 70px !important;
+        }
+
+            /* Ẩn chữ, chỉ giữ icon */
+            /* ẨN TẤT CẢ CHỮ TRONG SIDEBAR */
+            #toggle_aside:checked ~ .admin-wrapper .admin-sidebar .nav-section-title,
+            #toggle_aside:checked ~ .admin-wrapper .admin-sidebar .sidebar-header h4,
+            #toggle_aside:checked ~ .admin-wrapper .admin-sidebar .nav-link span {
+                display: none !important;
+            }
+
+            
+
+            
+
+            /* Căn icon ra giữa */
+            #toggle_aside:checked ~ .admin-wrapper .admin-sidebar .nav-link {
+                justify-content: center !important;
+                padding-left: 0 !important;
+            }
+
+        /* Thu nhỏ phần nội dung chính */
+        #toggle_aside:checked ~ .admin-wrapper .main-content {
+            margin-left: 70px !important;
+        }
+
+        /* Xoay mũi tên toggle */
+        #toggle_aside:checked ~ .admin-wrapper .admin-sidebar .rotate-icon {
+            transform: rotate(180deg);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="admin-wrapper">
+    <input type="checkbox" id="toggle_aside" hidden />
+
+    <div class="admin-wrapper ">
 
         <!-- SIDEBAR (ASIDE) -->
         @Html.Partial("_AsideLayout")
@@ -84,8 +126,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
