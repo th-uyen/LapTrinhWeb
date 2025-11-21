@@ -7,10 +7,10 @@ using System.Web.Mvc;
 
 namespace BanDoGiaDung.Areas.Admin.Controllers
 {
-    /* [Authorize(Roles = "Admin")]*/ // Nhớ bật cái này khi chạy thật nha
+    [Authorize(Roles = "Admin")] // Nhớ bật cái này khi chạy thật nha
     public class HomeController : Controller
     {
-        private GiaDungDbContext db = new GiaDungDbContext();
+        private readonly GiaDungDbContext db = new GiaDungDbContext();
 
         // GET: Admin/Home/Index
         public ActionResult Index()

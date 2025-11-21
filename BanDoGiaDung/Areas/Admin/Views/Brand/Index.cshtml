@@ -1,0 +1,177 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<BanDoGiaDung.Models.Brand>
+
+@{
+    ViewBag.Title = "Brand";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayout.cshtml";
+}
+
+<link href="~/Content/AdminCSS/Discount/Discount.css" rel="stylesheet" />
+
+
+<div class="discount-page">
+    <!-- HEADER -->
+    <div class="page-header">
+        <div class="header-left">
+            <h4><i class="bi  bi-patch-check me-2"></i>Danh Sách Nhà Sản Xuất </h4>
+        </div>
+        <div class="header-right">
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-2"></i>Thêm mới
+            </a>
+        </div>
+    </div>
+
+    <!-- SEARCH BAR -->
+
+    <div class="search-bar mb-4">
+        <form method="get" class="row g-3">
+
+            <!-- Tìm theo tên -->
+            <div class="col-md-3">
+                <input type="text" name="search" class="form-control"
+                       placeholder="Tìm theo tên..."
+                       value="@Request["search"]">
+            </div>
+
+
+
+
+
+            <!-- Sắp xếp -->
+            <div class="col-md-3">
+                @Html.DropDownList("sortOrder", new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Sắp xếp mặc định", Value = "" },
+                    new SelectListItem { Text = "Tên (A → Z)", Value = "name" },
+                },
+                new { @class = "form-select", onchange = "this.form.submit();" })
+            </div>
+
+            <!-- Nút tìm kiếm -->
+            <div class="col-md-12 text-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Lọc dữ liệu
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Xóa lọc</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th width="100">ID</th>
+                            <th>TÊN NHÀ SẢN XUẤT</th>
+                            <th width="180">NGÀY THÊM</th>
+                            <th width="150" class="text-center">SỐ LƯỢNG</th>
+                            <th width="150">HÀNH ĐỘNG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><strong>@item.brand_id</strong></td>
+                                    <td>
+                                        <strong>@item.brand_name</strong>
+                                        <br />
+                                    </td>
+                                    <td>
+                                        <small>@item.create_at.ToString("HH:mm dd-MM-yyyy")</small>
+                                    </td>
+                                    <td>
+                                        <span class="text-success fw-bold">
+                                            @item.update_by
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="@Url.Action("Edit", new { id = item.brand_id })"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="Chỉnh sửa">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button class="btn btn-sm btn-outline-danger btn-delete"
+                                                    data-id="@item.brand_id"
+                                                    data-name="@item.brand_name"
+                                                    title="Xóa">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                        <br />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <i class="bi bi-inbox" style="font-size: 48px; color: #ddd;"></i>
+                                    <p class="text-muted mt-3">Chưa có nhà sản xuất mới nào</p>
+                                    <a href="@Url.Action("Create")" class="btn btn-primary">
+                                        <i class="bi bi-plus-lg me-2"></i>Thêm nhà xuất bản mới nào !
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+                <!-- PHÂN TRANG Ở ĐÂY -->
+                <div class="d-flex justify-content-center mt-4">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }))
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts {
+    <script>
+    $(document).ready(function() {
+        // XÓA CHƯƠNG TRÌNH GIẢM GIÁ
+        $('.btn-delete').click(function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+
+            if (confirm('Bạn có chắc muốn xóa chương trình "' + name + '"?')) {
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Có lỗi xảy ra!');
+                    }
+                });
+            }
+        });
+    });
+    </script>
+}

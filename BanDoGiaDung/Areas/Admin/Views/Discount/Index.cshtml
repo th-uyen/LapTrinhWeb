@@ -8,13 +8,15 @@
     Layout = "~/Areas/Admin/Views/Shared/_MainLayout.cshtml";
 }
 
+<link href="~/Content/AdminCSS/Discount/Discount.css" rel="stylesheet" />
+
 
 <div class="discount-page">
 
     <!-- HEADER -->
     <div class="page-header">
         <div class="header-left">
-            <h4><i class="bi bi-percent me-2"></i>Chương trình giảm giá</h4>
+            <h4><i class="bi  bi-tags me-2"></i>Chương trình giảm giá</h4>
         </div>
         <div class="header-right">
             <a href="@Url.Action("Create")" class="btn btn-primary">
@@ -24,7 +26,7 @@
     </div>
 
     <!-- SEARCH BAR -->
-    
+
 
     <div class="search-bar mb-4">
         <form method="get" class="row g-3">
@@ -119,18 +121,37 @@
                                     </td>
                                     <td>
                                         @if (!string.IsNullOrEmpty(item.discount_code))
-                                        {
-                                            <span class="badge bg-warning">@item.discount_code</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">-</span>
-                                        }
+        {
+            <span class="badge bg-white text-dark">@item.discount_code</span>
+        }
+        else
+        {
+            <span class="text-muted">-</span>
+        }
+                                       
+
+
                                     </td>
                                     <td class="text-center">
-                                        <span class="badge @(item.quantity > 0 ? "bg-success" : "bg-danger")">
-                                            @item.quantity
-                                        </span>
+                                        @{ var now = DateTime.Now;
+
+                                            if (item.quantity <= 0)
+                                            {
+                                                <span class="badge bg-danger text-white">@item.quantity</span>
+                                            }
+                                            else if (item.discount_end < now)
+                                            {
+                                                <span class="badge bg-secondary text-white">@item.quantity</span>
+                                            }
+                                            else if (item.discount_star > now)
+                                            {
+                                                <span class="badge bg-warning text-dark">@item.quantity</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success text-white">@item.quantity</span>
+                                            }
+                                        }
                                     </td>
                                     <td>
                                         <small>@item.create_at.ToString("HH:mm dd-MM-yyyy")</small>
@@ -140,7 +161,7 @@
 
 
                                         @{
-                                            var now = DateTime.Now;
+                                            //var now = DateTime.Now;
                                             string statusLabel = "";
                                             string statusClass = "";
 
@@ -224,118 +245,7 @@
 
 
 
-<style>
-    /* 1. Cài đặt cho cái khung bao ngoài (ul) */
-    .pagination {
-        display: flex;
-        list-style: none !important; /* Xóa dấu chấm tròn */
-        padding: 0;
-        margin: 20px 0;
-        gap: 6px; /* Khoảng cách giữa các ô số */
-        justify-content: center; /* Căn giữa */
-    }
 
-        /* 2. Cài đặt cho từng ô số (thẻ a và thẻ span) */
-        .pagination li a, .pagination li span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 35px; /* Độ rộng tối thiểu để ô vuông đẹp */
-            height: 35px; /* Chiều cao */
-            padding: 0 5px;
-            color: #5e6278; /* Màu chữ xám đậm */
-            background-color: #fff; /* Nền trắng */
-            border: 1px solid #e1e3ea; /* Viền xám nhạt (QUAN TRỌNG) */
-            border-radius: 6px; /* Bo góc */
-
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-            /* 3. Hiệu ứng khi rê chuột vào (Hover) */
-            .pagination :hover {
-                background-color: #f1faff; /* Nền hơi xanh nhạt */
-                color: #009ef7; /* Chữ xanh dương */
-                border-color: #009ef7; /* Viền xanh dương */
-            }
-
-        /* 4. Trạng thái trang ĐANG CHỌN (Active) - Màu xanh */
-        .pagination .active span,
-        .pagination .active a,
-        .pagination .active .page-link {
-            background-color: #009ef7 !important; /* Nền xanh dương */
-            color: #ffffff !important; /* Chữ trắng */
-            border-color: #009ef7 !important; /* Viền xanh */
-            z-index: 3; /* Đè lên các thành phần khác */
-        }
-
-        /* 5. Trạng thái Vô hiệu hóa (Disabled - ví dụ đang trang 1 thì nút Prev mờ đi) */
-        .pagination .disabled span {
-            color: #a1a5b7;
-            background-color: #eff2f5;
-            border-color: #eff2f5;
-            cursor: not-allowed;
-        }
-
-
-
-    
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-    }
-
-        .page-header h4 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-    .search-bar {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        border: none;
-    }
-
-    .table thead th {
-        background: #f8f9fa;
-        color: #495057;
-        font-weight: 600;
-        font-size: 12px;
-        padding: 15px;
-        border: none;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .table tbody td {
-        padding: 15px;
-        vertical-align: middle;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .table tbody tr:hover {
-        background: #f8f9fa;
-    }
-
-    .btn-group {
-        display: flex;
-        gap: 5px;
-    }
-</style>
 
 @section scripts {
     <script>

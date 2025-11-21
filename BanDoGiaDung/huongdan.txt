@@ -12,3 +12,5 @@ File _MessageAlert.cshtml (Thông báo) : dùng Toastr JS và TempData
 File _HeaderLayout.cshtml (Thanh Trên Cùng) : Hiển thị tên Admin (lấy từ Session) và nút Đăng xuất.
 File _AsideLayout.cshtml (Cái Menu Trái - TẠO MỚI)
 File _MainLayout.cshtml (Bộ khung chính) : hứng thông báo lỗi bằng Toastr (hoặc SweetAlert) cho xịn.
+
+xóa avata , xóa xác thực create_by và update_by 

@@ -14,5 +14,26 @@ namespace BanDoGiaDung
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
+
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            var authCookie = HttpContext.Current.Request.Cookies[System.Web.Security.FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                try
+                {
+                    var authTicket = System.Web.Security.FormsAuthentication.Decrypt(authCookie.Value);
+
+                    var roles = authTicket.UserData.Split(',');
+
+                    var userPrincipal = new System.Security.Principal.GenericPrincipal(new System.Security.Principal.GenericIdentity(authTicket.Name), roles);
+                    HttpContext.Current.User = userPrincipal;
+                }
+                catch
+                {
+                }
+            }
+        }
+
     }
 }

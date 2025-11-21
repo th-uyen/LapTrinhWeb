@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Helpers;
@@ -14,7 +15,7 @@ namespace BanDoGiaDung.Controllers
     public class AccountController : Controller
     {
         // GET: Account
-        private GiaDungDbContext db = new GiaDungDbContext();
+        private readonly GiaDungDbContext db = new GiaDungDbContext();
         public ActionResult Index()
         {
             return View();
@@ -53,6 +54,43 @@ namespace BanDoGiaDung.Controllers
 
                 Session["UserEmail"] = user.Email;
                 Session["Role"] = user.Role;
+
+
+                // 2. Xác định tên quyền (Mapping từ số 0 sang chữ "Admin")
+                string userRole = "";
+                if (user.Role == 0)
+                {
+                    userRole = "Admin"; // Quan trọng: Chuỗi này phải khớp với chữ trong [Authorize]
+                }
+                else
+                {
+                    userRole = "User";
+                }
+
+                // 3. Tạo vé thông hành (FormsAuthenticationTicket)
+                var ticket = new System.Web.Security.FormsAuthenticationTicket(
+                    1,                      // Version
+                    user.Email,             // Tên user (lưu email)
+                    DateTime.Now,           // Thời điểm tạo
+                    DateTime.Now.AddMinutes(60), // Hết hạn sau 60 phút
+                    false,                  // Lưu nhớ? (Persistent)
+                    userRole                // <--- QUAN TRỌNG: Lưu chuỗi "Admin" vào đây
+                );
+
+                // 4. Mã hóa vé
+                string encryptedTicket = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+
+                // 5. Tạo Cookie
+                var authCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName, encryptedTicket);
+                Response.Cookies.Add(authCookie);
+
+                // ================================
+
+                // Chuyển hướng
+                if (user.Role == 0)
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                }
 
                 // Chuyển về trang chủ
                 return RedirectToAction("Index", "Home");
@@ -148,7 +186,7 @@ namespace BanDoGiaDung.Controllers
 
                 // 5. Gửi thông báo thành công và đá về trang Profile
                 TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
-                return RedirectToAction("Profile");
+                return RedirectToAction("EditProfile");
             }
             else
             {
@@ -253,8 +291,253 @@ namespace BanDoGiaDung.Controllers
 
             // Gửi thông báo thành công và tải lại trang
             TempData["SuccessMessage"] = "Cập nhật hồ sơ thành công!";
-            return RedirectToAction("Profile");
+            return RedirectToAction("EditProfile");
         }
+
+
+
+        // ==================== DANH SÁCH ĐỊA CHỈ ====================
+        [HttpGet]
+        public ActionResult Address()
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            int userId = (int)Session["UserID"];
+            var addresses = db.AccountAddresses
+                .Include(a => a.Provinces)
+                .Include(a => a.Districts)
+                .Include(a => a.Wards)
+                .Where(a => a.account_id == userId)
+                .OrderByDescending(a => a.isDefault)
+                .ThenByDescending(a => a.account_address_id)
+                .ToList();
+
+            return View(addresses);
+        }
+
+        // ==================== THÊM ĐỊA CHỈ - GET ====================
+        [HttpGet]
+        public ActionResult CreateAddress()
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            // Load danh sách tỉnh
+            ViewBag.Provinces = db.Provinces.OrderBy(p => p.province_name).ToList();
+
+            return View();
+        }
+
+        // ==================== THÊM ĐỊA CHỈ - POST ====================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAddress(AccountAddress model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Provinces = db.Provinces.OrderBy(p => p.province_name).ToList();
+                return View(model);
+            }
+
+            int userId = (int)Session["UserID"];
+
+            // Nếu đây là địa chỉ đầu tiên hoặc được chọn làm mặc định
+            if (model.isDefault || !db.AccountAddresses.Any(a => a.account_id == userId))
+            {
+                // Bỏ default của các địa chỉ khác
+                var existingAddresses = db.AccountAddresses.Where(a => a.account_id == userId).ToList();
+                foreach (var addr in existingAddresses)
+                {
+                    addr.isDefault = false;
+                }
+                model.isDefault = true;
+            }
+
+            model.account_id = userId;
+           // model.create_at = DateTime.Now;
+
+            db.AccountAddresses.Add(model);
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Thêm địa chỉ thành công!";
+            return RedirectToAction("Address");
+        }
+
+        // ==================== SỬA ĐỊA CHỈ - GET ====================
+        [HttpGet]
+        public ActionResult EditAddress(int id)
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            int userId = (int)Session["UserID"];
+            var address = db.AccountAddresses.FirstOrDefault(a => a.account_address_id == id && a.account_id == userId);
+
+            if (address == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy địa chỉ!";
+                return RedirectToAction("Address");
+            }
+
+            // Load dropdown data
+            ViewBag.Provinces = db.Provinces.OrderBy(p => p.province_name).ToList();
+            ViewBag.Districts = db.Districts.Where(d => d.province_id == address.province_id).ToList();
+            ViewBag.Wards = db.Wards.Where(w => w.district_id == address.district_id).ToList();
+
+            return View(address);
+        }
+
+        // ==================== SỬA ĐỊA CHỈ - POST ====================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAddress(AccountAddress model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Provinces = db.Provinces.OrderBy(p => p.province_name).ToList();
+                ViewBag.Districts = db.Districts.Where(d => d.province_id == model.province_id).ToList();
+                ViewBag.Wards = db.Wards.Where(w => w.district_id == model.district_id).ToList();
+                return View(model);
+            }
+
+            int userId = (int)Session["UserID"];
+            var address = db.AccountAddresses.Find(model.account_address_id);
+
+            if (address == null || address.account_id != userId)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy địa chỉ!";
+                return RedirectToAction("Address");
+            }
+
+            // Nếu chọn làm địa chỉ mặc định
+            if (model.isDefault && !address.isDefault)
+            {
+                var existingAddresses = db.AccountAddresses.Where(a => a.account_id == userId && a.account_address_id != model.account_address_id).ToList();
+                foreach (var addr in existingAddresses)
+                {
+                    addr.isDefault = false;
+                }
+            }
+
+            address.accountUsername = model.accountUsername;
+            address.accountPhoneNumber = model.accountPhoneNumber;
+            address.province_id = model.province_id;
+            address.district_id = model.district_id;
+            address.ward_id = model.ward_id;
+            address.content = model.content;
+            address.isDefault = model.isDefault;
+
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Cập nhật địa chỉ thành công!";
+            return RedirectToAction("Address");
+        }
+
+        // ==================== XÓA ĐỊA CHỈ ====================
+        [HttpPost]
+        public JsonResult DeleteAddress(int id)
+        {
+            try
+            {
+                int userId = (int)Session["UserID"];
+                var address = db.AccountAddresses.FirstOrDefault(a => a.account_address_id == id && a.account_id == userId);
+
+                if (address == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy địa chỉ!" });
+                }
+
+                bool wasDefault = address.isDefault;
+                db.AccountAddresses.Remove(address);
+                db.SaveChanges();
+
+                // Nếu xóa địa chỉ mặc định, set địa chỉ đầu tiên còn lại làm mặc định
+                if (wasDefault)
+                {
+                    var firstAddress = db.AccountAddresses.FirstOrDefault(a => a.account_id == userId);
+                    if (firstAddress != null)
+                    {
+                        firstAddress.isDefault = true;
+                        db.SaveChanges();
+                    }
+                }
+
+                return Json(new { success = true, message = "Xóa địa chỉ thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+
+        // ==================== ĐẶT ĐỊA CHỈ MẶC ĐỊNH ====================
+        [HttpPost]
+        public JsonResult SetDefaultAddress(int id)
+        {
+            try
+            {
+                int userId = (int)Session["UserID"];
+                var address = db.AccountAddresses.FirstOrDefault(a => a.account_address_id == id && a.account_id == userId);
+
+                if (address == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy địa chỉ!" });
+                }
+
+                // Bỏ default của tất cả địa chỉ khác
+                var allAddresses = db.AccountAddresses.Where(a => a.account_id == userId).ToList();
+                foreach (var addr in allAddresses)
+                {
+                    addr.isDefault = false;
+                }
+
+                // Set địa chỉ này làm mặc định
+                address.isDefault = true;
+                db.SaveChanges();
+
+                return Json(new { success = true, message = "Đã đặt làm địa chỉ mặc định!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+
+        // ==================== LOAD QUẬN/HUYỆN THEO TỈNH ====================
+        [HttpGet]
+        public JsonResult GetDistricts(int provinceId)
+        {
+            var districts = db.Districts
+                .Where(d => d.province_id == provinceId)
+                .OrderBy(d => d.district_name)
+                .Select(d => new
+                {
+                    id = d.district_id,
+                    name = d.district_name
+                })
+                .ToList();
+
+            return Json(districts, JsonRequestBehavior.AllowGet);
+        }
+
+        // ==================== LOAD PHƯỜNG/XÃ THEO QUẬN ====================
+        [HttpGet]
+        public JsonResult GetWards(int districtId)
+        {
+            var wards = db.Wards
+                .Where(w => w.district_id == districtId)
+                .OrderBy(w => w.ward_name)
+                .Select(w => new
+                {
+                    id = w.ward_id,
+                    name = w.ward_name
+                })
+                .ToList();
+
+            return Json(wards, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

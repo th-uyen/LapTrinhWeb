@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 
     // Báo cho Sidebar biết là đang ở trang Profile
-    ViewBag.ActivePage = "Profile";
+    ViewBag.ActivePage = "EditProfile";
 }
 
 <link href="~/Content/Account/Dasbroad_Profile.css" rel="stylesheet" />
@@ -23,7 +23,7 @@
 
         <div class="card shadow-sm p-4">
 
-            @using (Html.BeginForm("Profile", "Account", FormMethod.Post))
+            @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })

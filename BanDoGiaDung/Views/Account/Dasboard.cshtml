@@ -2,7 +2,7 @@
     <div class="dashboard_tab_button">
         <ul role="tablist" class="nav flex-column dashboard-list">
             <li>
-                <a href="@Url.Action("Profile","Account")"
+                <a href="@Url.Action("EditProfile","Account")"
                    class="nav-link btn-green @(ViewContext.RouteData.Values["Action"].ToString() == "EditProfile" ? "active" : "")">
                     <i class="bi bi-person-circle me-2"></i> Thông tin Tài Khoản
                 </a>
@@ -25,7 +25,7 @@
             <li>
                 <a href="@Url.Action("Address","Account")"
                    class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Address" ? "active" : "")">
-                    <i class="bi bi-geo-alt me-2"></i> Sổ địa Chỉ
+                    <i class="bi bi-geo-alt me-2"></i> Sổ địa chỉ
                 </a>
             </li>
 

@@ -13,10 +13,14 @@ namespace BanDoGiaDung.Areas.Admin.Controllers
     public class DiscountController : Controller
     {
         // GET: Admin/Discount
-        private GiaDungDbContext db = new GiaDungDbContext();
+        private readonly GiaDungDbContext db = new GiaDungDbContext();
 
         public ActionResult Index(string search, string code, string status, string sortOrder, int? page)
         {
+            // Check 1: Bắt buộc đăng nhập
+            if (Session["UserID"] == null)
+                return RedirectToAction("Logout", "Account", new { area = "" });
+
             ViewBag.Title = "Chương trình giảm giá";
 
             var discounts = db.Discounts.AsQueryable();
@@ -90,10 +94,10 @@ namespace BanDoGiaDung.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            //if (Session["UserID"] == null || (int)Session["Role"] != 0)
-            //{
-            //    return RedirectToAction("Login", "Account", new { area = "" });
-            //}
+
+            // Check 1: Bắt buộc đăng nhập
+            if (Session["UserID"] == null)
+                return RedirectToAction("Logout", "Account", new { area = "" });
 
             ViewBag.Title = "Thêm chương trình giảm giá";
             return View();
@@ -162,10 +166,7 @@ namespace BanDoGiaDung.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            //if (Session["UserID"] == null || (int)Session["Role"] != 0)
-            //{
-            //    return RedirectToAction("Login", "Account", new { area = "" });
-            //}
+            
 
             var discount = db.Discounts.Find(id);
             if (discount == null)
