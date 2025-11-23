@@ -6,99 +6,85 @@
 
 <link href="~/Content/Account/Dasbroad_Profile.css" rel="stylesheet" />
 
+
 <div class="profile-container">
-
     @Html.Partial("Dasboard")
-
     <main class="profile-content">
-        <h3 class="fw-bold mb-4">
-            <i class="bi bi-plus-circle me-2"></i>Thêm địa chỉ mới
-        </h3>
+        <h3 class="fw-bold mb-4">Thêm địa chỉ mới</h3>
 
         @using (Html.BeginForm("CreateAddress", "Account", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
 
             <div class="row">
-
-                <!-- TÊN NGƯỜI NHẬN -->
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Tên người nhận <span class="text-danger">*</span></label>
-                    @Html.TextBoxFor(m => m.accountUsername, new { @class = "form-control", placeholder = "Nguyễn Văn A" })
-                    @Html.ValidationMessageFor(m => m.accountUsername, "", new { @class = "text-danger" })
+                    <label class="form-label">Tên người nhận</label>
+                    @Html.TextBoxFor(m => m.accountUsername, new { @class = "form-control" })
                 </div>
-
-                <!-- SỐ ĐIỆN THOẠI -->
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Số điện thoại <span class="text-danger">*</span></label>
-                    @Html.TextBoxFor(m => m.accountPhoneNumber, new { @class = "form-control", placeholder = "0987654321" })
-                    @Html.ValidationMessageFor(m => m.accountPhoneNumber, "", new { @class = "text-danger" })
+                    <label class="form-label">Số điện thoại</label>
+                    @Html.TextBoxFor(m => m.accountPhoneNumber, new { @class = "form-control" })
                 </div>
 
-                <!-- TỈNH/THÀNH PHỐ -->
                 <div class="col-md-4 mb-3">
-                    <label class="form-label">Tỉnh/Thành phố <span class="text-danger">*</span></label>
-                    <select id="province" name="province_id" class="form-select">
-                        <option value="">-- Chọn tỉnh/thành phố --</option>
-                        @foreach (var province in (List<BanDoGiaDung.Models.Provinces>)ViewBag.Provinces)
-                        {
-                            <option value="@province.province_id">@province.province_name</option>
-                        }
-                    </select>
-                    @Html.ValidationMessageFor(m => m.province_id, "", new { @class = "text-danger" })
+                    <label class="form-label">Tỉnh / Thành phố</label>
+                    @Html.DropDownListFor(
+        m => m.province_id,
+        (SelectList)ViewBag.Provinces,
+        "-- Chọn tỉnh/thành phố --",
+        new
+          {
+         @class = "form-select",
+         onchange = "this.form.submit();"  // Tự submit khi đổi tỉnh
+        }
+        )
+
+
                 </div>
 
-                <!-- QUẬN/HUYỆN -->
                 <div class="col-md-4 mb-3">
-                    <label class="form-label">Quận/Huyện <span class="text-danger">*</span></label>
-                    <select id="district" name="district_id" class="form-select" disabled>
-                        <option value="">-- Chọn quận/huyện --</option>
-                    </select>
-                    @Html.ValidationMessageFor(m => m.district_id, "", new { @class = "text-danger" })
+                    <label class="form-label">Quận / Huyện</label>
+                    @Html.DropDownListFor(
+        m => m.district_id,
+        (SelectList)ViewBag.Districts,
+        "-- Chọn quận/huyện --",
+        new
+          {
+         @class = "form-select",
+         onchange = "this.form.submit();"  // Tự submit khi đổi huyện
+        }
+        )
+
+
                 </div>
 
-                <!-- PHƯỜNG/XÃ -->
                 <div class="col-md-4 mb-3">
-                    <label class="form-label">Phường/Xã <span class="text-danger">*</span></label>
-                    <select id="ward" name="ward_id" class="form-select" disabled>
-                        <option value="">-- Chọn phường/xã --</option>
-                    </select>
-                    @Html.ValidationMessageFor(m => m.ward_id, "", new { @class = "text-danger" })
+                    <label class="form-label">Phường / Xã</label>
+                    @Html.DropDownListFor(
+        m => m.ward_id,
+        (SelectList)ViewBag.Wards,
+        "-- Chọn phường/xã --",
+        new { @class = "form-select" }
+        )
+
+
                 </div>
 
-                <!-- ĐỊA CHỈ CHI TIẾT -->
                 <div class="col-md-12 mb-3">
-                    <label class="form-label">Địa chỉ chi tiết <span class="text-danger">*</span></label>
-                    @Html.TextAreaFor(m => m.content, new { @class = "form-control", rows = "3", placeholder = "Số nhà, tên đường..." })
-                    @Html.ValidationMessageFor(m => m.content, "", new { @class = "text-danger" })
+                    <label class="form-label">Địa chỉ chi tiết</label>
+                    @Html.TextAreaFor(m => m.content, new { @class = "form-control", rows = 3 })
                 </div>
-
-                <!-- ĐỊA CHỈ MẶC ĐỊNH -->
-                <div class="col-md-12 mb-3">
-                    <div class="form-check">
-                        @Html.CheckBoxFor(m => m.isDefault, new { @class = "form-check-input" })
-                        <label class="form-check-label">
-                            Đặt làm địa chỉ mặc định
-                        </label>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-check-lg me-2"></i>Lưu địa chỉ
-                </button>
-                <a href="@Url.Action("Address")" class="btn btn-secondary">
-                    <i class="bi bi-x-lg me-2"></i>Hủy
-                </a>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Lưu địa chỉ</button>
             </div>
         }
-
     </main>
 </div>
-
 <style>
     .form-actions {
         display: flex;
@@ -107,57 +93,3 @@
         border-top: 1px solid #e0e0e0;
     }
 </style>
-
-@section scripts {
-
-    <script>
-        $(document).ready(function() {
-
-            // KHI CHỌN TỈNH → LOAD QUẬN/HUYỆN
-            $('#province').change(function() {
-                var provinceId = $(this).val();
-
-                $('#district').prop('disabled', true).html('<option value="">Đang tải...</option>');
-                $('#ward').prop('disabled', true).html('<option value="">-- Chọn phường/xã --</option>');
-
-                if (provinceId) {
-                    $.ajax({
-                        url: '@Url.Action("GetDistricts", "Account")',
-                        type: 'GET',
-                        data: { provinceId: provinceId },
-                        success: function(data) {
-                            var options = '<option value="">-- Chọn quận/huyện --</option>';
-                            $.each(data, function(index, item) {
-                                options += '<option value="' + item.id + '">' + item.name + '</option>';
-                            });
-                            $('#district').html(options).prop('disabled', false);
-                        }
-                    });
-                }
-            });
-
-            // KHI CHỌN QUẬN → LOAD PHƯỜNG/XÃ
-            $('#district').change(function() {
-                var districtId = $(this).val();
-
-                $('#ward').prop('disabled', true).html('<option value="">Đang tải...</option>');
-
-                if (districtId) {
-                    $.ajax({
-                        url: '@Url.Action("GetWards", "Account")',
-                        type: 'GET',
-                        data: { districtId: districtId },
-                        success: function(data) {
-                            var options = '<option value="">-- Chọn phường/xã --</option>';
-                            $.each(data, function(index, item) {
-                                options += '<option value="' + item.id + '">' + item.name + '</option>';
-                            });
-                            $('#ward').html(options).prop('disabled', false);
-                        }
-                    });
-                }
-            });
-
-        });
-    </script>
-}

@@ -79,7 +79,7 @@ namespace BanDoGiaDung.Controllers
         public ActionResult UpdateCart(int id, int quantity)
         {
             var cart = GetCart();
-            var item = cart.FirstOrDefault(x => x.Id== id);
+            var item = cart.FirstOrDefault(x => x.Id == id);
 
             if (item == null)
             {

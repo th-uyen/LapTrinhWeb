@@ -9,18 +9,18 @@
             </li>
 
             <li>
-            <a href="@Url.Action("TrackingOrder","Account")"
-               class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "TrackingOrder" ? "active" : "")">
-                <i class="bi bi-bag-check me-2"></i> Lịch sử mua hàng
-            </a>
-        </li>
+                <a href="@Url.Action("TrackingOrder","Account")"
+                   class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "TrackingOrder" ? "active" : "")">
+                    <i class="bi bi-bag-check me-2"></i> Lịch sử mua hàng
+                </a>
+            </li>
 
-        <li>
-            <a href="@Url.Action("ChangePassword","Account")"
-               class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "ChangePassword" ? "active" : "")">
-                <i class="bi bi-key me-2"></i> Đổi mật khẩu
-            </a>
-        </li>
+            <li>
+                <a href="@Url.Action("ChangePassword","Account")"
+                   class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "ChangePassword" ? "active" : "")">
+                    <i class="bi bi-key me-2"></i> Đổi mật khẩu
+                </a>
+            </li>
 
             <li>
                 <a href="@Url.Action("Address","Account")"

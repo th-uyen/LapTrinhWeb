@@ -166,7 +166,7 @@ namespace BanDoGiaDung.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            
+
 
             var discount = db.Discounts.Find(id);
             if (discount == null)

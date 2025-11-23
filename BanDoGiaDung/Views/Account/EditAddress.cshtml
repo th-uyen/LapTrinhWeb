@@ -19,52 +19,65 @@
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.account_address_id)
-            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <!-- FLAG để phân biệt submit reload hay submit lưu -->
+            <input type="hidden" id="reloadFlag" name="reloadFlag" value="0" />
+
+            @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
 
             <div class="row">
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Tên người nhận <span class="text-danger">*</span></label>
                     @Html.TextBoxFor(m => m.accountUsername, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.accountUsername, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Số điện thoại <span class="text-danger">*</span></label>
                     @Html.TextBoxFor(m => m.accountPhoneNumber, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.accountPhoneNumber, "", new { @class = "text-danger" })
                 </div>
 
+                <!-- Tỉnh -->
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Tỉnh/Thành phố <span class="text-danger">*</span></label>
-                    <select id="province" name="province_id" class="form-select">
+
+                    <select name="province_id" class="form-select"
+                            onchange="document.getElementById('reloadFlag').value='1'; this.form.submit();">
                         @foreach (var province in (List<BanDoGiaDung.Models.Provinces>)ViewBag.Provinces)
                         {
-                            <option value="@province.province_id" @(Model.province_id == province.province_id ? "selected" : "")>
+                            <option value="@province.province_id"
+                                    @(Model.province_id == province.province_id ? "selected" : "")>
                                 @province.province_name
                             </option>
                         }
                     </select>
                 </div>
 
+                <!-- Huyện -->
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Quận/Huyện <span class="text-danger">*</span></label>
-                    <select id="district" name="district_id" class="form-select">
+
+                    <select name="district_id" class="form-select"
+                            onchange="document.getElementById('reloadFlag').value='1'; this.form.submit();">
                         @foreach (var district in (List<BanDoGiaDung.Models.Districts>)ViewBag.Districts)
                         {
-                            <option value="@district.district_id" @(Model.district_id == district.district_id ? "selected" : "")>
+                            <option value="@district.district_id"
+                                    @(Model.district_id == district.district_id ? "selected" : "")>
                                 @district.district_name
                             </option>
                         }
                     </select>
                 </div>
 
+                <!-- Xã -->
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Phường/Xã <span class="text-danger">*</span></label>
-                    <select id="ward" name="ward_id" class="form-select">
+
+                    <select name="ward_id" class="form-select">
                         @foreach (var ward in (List<BanDoGiaDung.Models.Wards>)ViewBag.Wards)
                         {
-                            <option value="@ward.ward_id" @(Model.ward_id == ward.ward_id ? "selected" : "")>
+                            <option value="@ward.ward_id"
+                                    @(Model.ward_id == ward.ward_id ? "selected" : "")>
                                 @ward.ward_name
                             </option>
                         }
@@ -74,7 +87,6 @@
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Địa chỉ chi tiết <span class="text-danger">*</span></label>
                     @Html.TextAreaFor(m => m.content, new { @class = "form-control", rows = "3" })
-                    @Html.ValidationMessageFor(m => m.content, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="col-md-12 mb-3">
@@ -101,50 +113,11 @@
     </main>
 </div>
 
-@section scripts {
-
-    <script>
-        $(document).ready(function() {
-            $('#province').change(function() {
-                var provinceId = $(this).val();
-                $('#district').prop('disabled', true).html('<option value="">Đang tải...</option>');
-                $('#ward').prop('disabled', true).html('<option value="">-- Chọn phường/xã --</option>');
-
-                if (provinceId) {
-                    $.ajax({
-                        url: '@Url.Action("GetDistricts", "Account")',
-                        type: 'GET',
-                        data: { provinceId: provinceId },
-                        success: function(data) {
-                            var options = '<option value="">-- Chọn quận/huyện --</option>';
-                            $.each(data, function(index, item) {
-                                options += '<option value="' + item.id + '">' + item.name + '</option>';
-                            });
-                            $('#district').html(options).prop('disabled', false);
-                        }
-                    });
-                }
-            });
-
-            $('#district').change(function() {
-                var districtId = $(this).val();
-                $('#ward').prop('disabled', true).html('<option value="">Đang tải...</option>');
-
-                if (districtId) {
-                    $.ajax({
-                        url: '@Url.Action("GetWards", "Account")',
-                        type: 'GET',
-                        data: { districtId: districtId },
-                        success: function(data) {
-                            var options = '<option value="">-- Chọn phường/xã --</option>';
-                            $.each(data, function(index, item) {
-                                options += '<option value="' + item.id + '">' + item.name + '</option>';
-                            });
-                            $('#ward').html(options).prop('disabled', false);
-                        }
-                    });
-                }
-            });
-        });
-    </script>
-}
+<style>
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+    }
+</style>
