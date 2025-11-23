@@ -109,6 +109,108 @@
     <Content Include="Content\AdminCSS\Discount\Discount.css" />
     <Content Include="Content\AdminCSS\Layout\_AsideLayout.css" />
     <Content Include="Content\AdminCSS\Layout\_HeaderLayout.css" />
+    <Content Include="Content\Images\Brands\acer.jpg" />
+    <Content Include="Content\Images\Brands\acnos.jpg" />
+    <Content Include="Content\Images\Brands\alphaworks.jpg" />
+    <Content Include="Content\Images\Brands\apple.jpg" />
+    <Content Include="Content\Images\Brands\aqua.jpg" />
+    <Content Include="Content\Images\Brands\asus.jpg" />
+    <Content Include="Content\Images\Brands\benny.jpg" />
+    <Content Include="Content\Images\Brands\corsair.jpg" />
+    <Content Include="Content\Images\Brands\dell.jpg" />
+    <Content Include="Content\Images\Brands\electrolux.jpg" />
+    <Content Include="Content\Images\Brands\fujihome.jpg" />
+    <Content Include="Content\Images\Brands\harmanKardon.jpg" />
+    <Content Include="Content\Images\Brands\havit.jpg" />
+    <Content Include="Content\Images\Brands\hp.jpg" />
+    <Content Include="Content\Images\Brands\jbl.jpg" />
+    <Content Include="Content\Images\Brands\kaff.jpg" />
+    <Content Include="Content\Images\Brands\lenovo.jpg" />
+    <Content Include="Content\Images\Brands\lg.jpg" />
+    <Content Include="Content\Images\Brands\logitech.jpg" />
+    <Content Include="Content\Images\Brands\microlab.jpg" />
+    <Content Include="Content\Images\Brands\microsoft.jpg" />
+    <Content Include="Content\Images\Brands\msi.jpg" />
+    <Content Include="Content\Images\Brands\mutosi.jpg" />
+    <Content Include="Content\Images\Brands\panasonic.jpg" />
+    <Content Include="Content\Images\Brands\philips.jpg" />
+    <Content Include="Content\Images\Brands\rapido.jpg" />
+    <Content Include="Content\Images\Brands\razer.jpg" />
+    <Content Include="Content\Images\Brands\samsung.jpg" />
+    <Content Include="Content\Images\Brands\sandisk.jpg" />
+    <Content Include="Content\Images\Brands\seagate.jpg" />
+    <Content Include="Content\Images\Brands\sharp.jpg" />
+    <Content Include="Content\Images\Brands\sony.jpg" />
+    <Content Include="Content\Images\Brands\sunhouse.jpg" />
+    <Content Include="Content\Images\Brands\tcl.jpg" />
+    <Content Include="Content\Images\Brands\toshiba.jpg" />
+    <Content Include="Content\Images\Brands\wd.jpg" />
+    <Content Include="Content\Images\Brands\xiaomi.jpg" />
+    <Content Include="Content\Images\Products\product_10.png" />
+    <Content Include="Content\Images\Products\product_11.png" />
+    <Content Include="Content\Images\Products\product_12.png" />
+    <Content Include="Content\Images\Products\product_13.png" />
+    <Content Include="Content\Images\Products\product_14.png" />
+    <Content Include="Content\Images\Products\product_15.png" />
+    <Content Include="Content\Images\Products\product_16.png" />
+    <Content Include="Content\Images\Products\product_17.png" />
+    <Content Include="Content\Images\Products\product_18.png" />
+    <Content Include="Content\Images\Products\product_19.png" />
+    <Content Include="Content\Images\Products\product_20.png" />
+    <Content Include="Content\Images\Products\product_21.png" />
+    <Content Include="Content\Images\Products\product_23.png" />
+    <Content Include="Content\Images\Products\product_24.png" />
+    <Content Include="Content\Images\Products\product_25.png" />
+    <Content Include="Content\Images\Products\product_26.png" />
+    <Content Include="Content\Images\Products\product_27.png" />
+    <Content Include="Content\Images\Products\product_30.png" />
+    <Content Include="Content\Images\Products\product_31.png" />
+    <Content Include="Content\Images\Products\product_32.png" />
+    <Content Include="Content\Images\Products\product_33.png" />
+    <Content Include="Content\Images\Products\product_34.png" />
+    <Content Include="Content\Images\Products\product_4.png" />
+    <Content Include="Content\Images\Products\product_43.png" />
+    <Content Include="Content\Images\Products\product_45.png" />
+    <Content Include="Content\Images\Products\product_46.png" />
+    <Content Include="Content\Images\Products\product_47.png" />
+    <Content Include="Content\Images\Products\product_48.png" />
+    <Content Include="Content\Images\Products\product_49.png" />
+    <Content Include="Content\Images\Products\product_5.png" />
+    <Content Include="Content\Images\Products\product_50.png" />
+    <Content Include="Content\Images\Products\product_51.png" />
+    <Content Include="Content\Images\Products\product_53.png" />
+    <Content Include="Content\Images\Products\product_54.png" />
+    <Content Include="Content\Images\Products\product_55.png" />
+    <Content Include="Content\Images\Products\product_56.png" />
+    <Content Include="Content\Images\Products\product_57.png" />
+    <Content Include="Content\Images\Products\product_58.png" />
+    <Content Include="Content\Images\Products\product_59.png" />
+    <Content Include="Content\Images\Products\product_60.png" />
+    <Content Include="Content\Images\Products\product_61.png" />
+    <Content Include="Content\Images\Products\product_63.png" />
+    <Content Include="Content\Images\Products\product_64.png" />
+    <Content Include="Content\Images\Products\product_65.png" />
+    <Content Include="Content\Images\Products\product_66.png" />
+    <Content Include="Content\Images\Products\product_67.png" />
+    <Content Include="Content\Images\Products\product_68.png" />
+    <Content Include="Content\Images\Products\product_69.png" />
+    <Content Include="Content\Images\Products\product_7.png" />
+    <Content Include="Content\Images\Products\product_70.png" />
+    <Content Include="Content\Images\Products\product_71.png" />
+    <Content Include="Content\Images\Products\product_73.png" />
+    <Content Include="Content\Images\Products\product_74.png" />
+    <Content Include="Content\Images\Products\product_75.png" />
+    <Content Include="Content\Images\Products\product_76.png" />
+    <Content Include="Content\Images\Products\product_77.png" />
+    <Content Include="Content\Images\Products\product_78.png" />
+    <Content Include="Content\Images\Products\product_79.png" />
+    <Content Include="Content\Images\Products\product_8.png" />
+    <Content Include="Content\Images\Products\product_80.png" />
+    <Content Include="Content\Images\Products\product_81.png" />
+    <Content Include="Content\Images\Products\product_83.png" />
+    <Content Include="Content\Images\Products\product_85.png" />
+    <Content Include="Content\Images\Products\product_86.png" />
+    <Content Include="Content\Images\Products\product_9.png" />
     <Content Include="Content\News.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
@@ -171,6 +273,10 @@
     <Compile Include="Migrations\202511161326243_SuaLoiDatetimeAccount.cs" />
     <Compile Include="Migrations\202511161326243_SuaLoiDatetimeAccount.Designer.cs">
       <DependentUpon>202511161326243_SuaLoiDatetimeAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202511210845275_ThemCotAnhChoBrand.cs" />
+    <Compile Include="Migrations\202511210845275_ThemCotAnhChoBrand.Designer.cs">
+      <DependentUpon>202511210845275_ThemCotAnhChoBrand.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -235,7 +341,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Scripts\UserJS\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
@@ -245,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202511161326243_SuaLoiDatetimeAccount.resx">
       <DependentUpon>202511161326243_SuaLoiDatetimeAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202511210845275_ThemCotAnhChoBrand.resx">
+      <DependentUpon>202511210845275_ThemCotAnhChoBrand.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

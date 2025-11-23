@@ -17,6 +17,9 @@ namespace BanDoGiaDung.Models
             Products = new HashSet<Product>();
         }
         [Key] public int brand_id { get; set; }
+
+        [StringLength(200)]
+        public string image { get;set; }
         [Required][StringLength(50)] public string brand_name { get; set; }
         [Required][StringLength(100)] public string create_by { get; set; }
         public DateTime create_at { get; set; }
