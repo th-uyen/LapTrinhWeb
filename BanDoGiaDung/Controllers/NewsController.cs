@@ -1,8 +1,11 @@
 ﻿using BanDoGiaDung.Models;
+using BanDoGiaDung.Services;
+using PagedList;
+using PagedList.Mvc;
 using System;
 using System.Linq;
 using System.Web.Mvc;
-using BanDoGiaDung.Services;
+using System.Web.UI;
 
 namespace BanDoGiaDung.Controllers
 {
@@ -10,10 +13,12 @@ namespace BanDoGiaDung.Controllers
     {
         private NewsServices service = new NewsServices();
 
-        public ActionResult TinTuc()
+        public ActionResult TinTuc(int ?page)   
         {
             var list = service.GetAllNews();
-            return View(list);
+            int pageSize = 6;
+            int pageNumber = page ?? 1;
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Details(int id)

@@ -383,11 +383,11 @@ namespace BanDoGiaDung.Controllers
             int userId = (int)Session["UserID"];
             var address = db.AccountAddresses.FirstOrDefault(a => a.account_address_id == id && a.account_id == userId);
 
-            if (address == null)
-            {
-                TempData["ErrorMessage"] = "Không tìm thấy địa chỉ!";
-                return RedirectToAction("Address");
-            }
+            //if (address == null)
+            //{
+            //    TempData["ErrorMessage"] = "Không tìm thấy địa chỉ!";
+            //    return RedirectToAction("Address");
+            //}
 
             // Load dropdown data
             ViewBag.Provinces = db.Provinces.OrderBy(p => p.province_name).ToList();
