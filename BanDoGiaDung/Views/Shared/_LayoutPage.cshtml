@@ -194,7 +194,7 @@
                 {
                     <div class="text-danger"><a class="text-decoration-none text-danger" href="@Url.Action("Index", "Home", new { area = "Admin" })">Admin Panel</a></div>
                 }
-                    @*<div><i class="bi bi-cart"></i><a href="~/Views/Cart/Index">Giỏ hàng</a> </div>*@
+                @*<div><i class="bi bi-cart"></i><a href="~/Views/Cart/Index">Giỏ hàng</a> </div>*@
                 @{ Html.RenderAction("CartSummary", "Cart"); }
                 <div>
                     @if (Session["UserName"] != null)

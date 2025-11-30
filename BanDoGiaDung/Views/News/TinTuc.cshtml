@@ -1,11 +1,13 @@
-﻿@model List<BanDoGiaDung.Models.NewsArticle>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<BanDoGiaDung.Models.NewsArticle>
 @{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     ViewBag.Title = "Tin Tức";
 }
 
-<h1 class="text-center  fw-bold mt-3 mb-4">
-    📰 Tin Tức - Khuyến Mãi
+<h1 class="text-center fw-bold mt-3 mb-4">
+    <i class="bi bi-newspaper"></i> Tin Tức - Khuyến Mãi
 </h1>
 
 <div class="row">
@@ -26,12 +28,77 @@
             </div>
         </div>
     }
+
+</div>
+
+<!-- PHÂN TRANG Ở ĐÂY -->
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("TinTuc", new { page, search = Request.QueryString["search"] }))
+
 </div>
 
 <style>
+    /* 1. Cài đặt cho cái khung bao ngoài (ul) */
+    .pagination {
+        display: flex;
+        list-style: none !important; /* Xóa dấu chấm tròn */
+        padding: 0;
+        margin: 20px 0;
+        gap: 6px; /* Khoảng cách giữa các ô số */
+        justify-content: center; /* Căn giữa */
+    }
+
+        /* 2. Cài đặt cho từng ô số (thẻ a và thẻ span) */
+        .pagination li a, .pagination li span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 35px; /* Độ rộng tối thiểu để ô vuông đẹp */
+            height: 35px; /* Chiều cao */
+            padding: 0 5px;
+            color: #5e6278; /* Màu chữ xám đậm */
+            background-color: #fff; /* Nền trắng */
+            border: 1px solid #e1e3ea; /* Viền xám nhạt (QUAN TRỌNG) */
+            border-radius: 6px; /* Bo góc */
+
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* 3. Hiệu ứng khi rê chuột vào (Hover) */
+        .pagination :hover {
+            background-color: #f1faff; /* Nền hơi xanh nhạt */
+            color: #009ef7; /* Chữ xanh dương */
+            border-color: #009ef7; /* Viền xanh dương */
+        }
+
+        /* 4. Trạng thái trang ĐANG CHỌN (Active) - Màu xanh */
+        .pagination .active span,
+        .pagination .active a,
+        .pagination .active .page-link {
+            background-color: #009ef7 !important; /* Nền xanh dương */
+            color: #ffffff !important; /* Chữ trắng */
+            border-color: #009ef7 !important; /* Viền xanh */
+            z-index: 3; /* Đè lên các thành phần khác */
+        }
+
+        /* 5. Trạng thái Vô hiệu hóa (Disabled - ví dụ đang trang 1 thì nút Prev mờ đi) */
+        .pagination .disabled span {
+            color: #a1a5b7;
+            background-color: #eff2f5;
+            border-color: #eff2f5;
+            cursor: not-allowed;
+        }
+
+
+
+
     h1 {
         color: #228B22;
     }
+
     .news-card:hover img {
         transform: scale(1.1);
     }

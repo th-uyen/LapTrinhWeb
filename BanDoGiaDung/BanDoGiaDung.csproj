@@ -185,6 +185,15 @@
     <Content Include="Content\Images\Brands\toshiba.jpg" />
     <Content Include="Content\Images\Brands\wd.jpg" />
     <Content Include="Content\Images\Brands\xiaomi.jpg" />
+    <Content Include="Content\Images\News\news10.png" />
+    <Content Include="Content\Images\News\news11.png" />
+    <Content Include="Content\Images\News\news12.png" />
+    <Content Include="Content\Images\News\news8-1.png" />
+    <Content Include="Content\Images\News\news8-2.png" />
+    <Content Include="Content\Images\News\news8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Images\News\news9.png" />
     <Content Include="Content\Images\Products\product_10.png" />
     <Content Include="Content\Images\Products\product_11.png" />
     <Content Include="Content\Images\Products\product_12.png" />

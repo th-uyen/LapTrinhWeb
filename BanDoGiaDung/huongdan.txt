@@ -14,3 +14,5 @@ File _AsideLayout.cshtml (Cái Menu Trái - TẠO MỚI)
 File _MainLayout.cshtml (Bộ khung chính) : hứng thông báo lỗi bằng Toastr (hoặc SweetAlert) cho xịn.
 
 xóa avata , xóa xác thực create_by và update_by 
+
+đã có hàm phân trang , tái sd được 

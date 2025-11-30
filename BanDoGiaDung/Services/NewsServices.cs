@@ -227,7 +227,282 @@ namespace BanDoGiaDung.Services
                         <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
                     "
                 },
+                new NewsArticle
+                {
+                    Id = 7,
+                    Title = "GIA DỤNG ONLINE - XẢ KHO GIẢM SỐC: Giá chỉ từ 2xx.000đ - Giới hạn 30 suất mỗi ngày, chỉ mua online!",
+                    ImageUrl ="/Content/Images/News/news8.png",
+                    PublishDate = DateTime.Now.AddDays(-23),
+                    Content =
+                    @"
+                        <h3>1.Thời gian khuyến mãi:  Từ 01/11 - 31/11/2025 </h3>
 
+                        <h3>2.Nội dung chương trình:</h3>
+                        <p>Mùa sale đã đến, hội săn hàng gia dụng không thể bỏ lỡ! Điện máy XANH tung ưu đãi ""XẢ KHO GIẢM SỐC"" cho khách đặt online: giá chỉ từ 2xx.000đ, 
+                           số lượng giới hạn 30 suất/ngày - nhanh tay săn deal, chậm là hết!!<p>
+
+                        <img src='/Content/Images/News/news8.png' />
+
+                        <h3>3.🎁 LỊCH SALE THÁNG 11 – KHAI MÀN MÙA MUA SẮM LỚN NHẤT NĂM</h3>
+                        <ul>
+                            <li><strong>08/11 - 11/11:</strong> 11/11 SALE NGÀY ĐÔI - DEAL VÔ ĐỐI</li>
+                            <li><strong>15/11 - 17/11:</strong> GIỮA THÁNG SĂN SALE - XẢ LÁNG SĂN DEAL</li>
+                            <li><strong>19/11 - 20/11:</strong> TRI ÂN CÔ THẦY - DEAL TỐT TRAO TAY</li>
+                            <li><strong>22/11 - 25/11:</strong> TIỆC SALE CUỐI THÁNG - DEAL SIÊU HOÀNH TRÁNG</li>
+                            <li><strong>28/11 - 30/11:</strong> VUI HALLOWEEN - SALE CỰC ĐỈNH</li>
+                        </ul>
+
+                        <h3>4.FLASH SALE GIÁ SIÊU SỐC</h3>
+                        <ul>
+                            <li><strong>5</strong> khung giờ mỗi ngày - giá giảm sâu siêu bất ngờ.</li>
+                            <li>Số lượng có hạn - chốt nhanh kẻo lỡ!</li>
+                        </ul>
+                        
+                        <h3>5.ĐẶC BIỆT, DEAL XỊN DÀNH RIÊNG CHO THÁNG 11:</h3>
+                            <ul>
+                                <li>Giảm <strong>100.000Đ</strong> khi mua sản phẩm trực tiếp tại cửa hàng, áp dụng cho đơn hàng từ 1 triệu.</li>
+                                <li>Giảm <strong>300.000Đ</strong> cho đơn từ 1 - dưới 3 triệu.</li>
+                                <li>Giảm <strong>600.000Đ</strong> cho đơn từ 3 triệu trở lên.</li>
+                            </ul>
+                        <h3>6.ƯU ĐÃI VẬN CHUYỂN </h3>
+                            <ul>
+                                <li>Freeship cho đơn hàng từ 200.000đ trong bán kính 10km.</li>
+                                <li>Đặc biệt, freeship đơn hàng từ 0đ trong bán kính 10km cho các Campaign tháng 10 và Mini-Campaign Thứ 4 Freeship diễn ra Hàng tuần.</li>
+                                <li>Với các đơn ngoài 10km, phí phụ thu: 5.000đ/km.</li>
+                            </ul>
+                        <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
+                    "
+                },
+                new NewsArticle
+                {
+                    Id = 8,
+                    Title = "12/12 Sale hết - Kết năm: Ưu đãi đậm - còn được mua trả chậm, tất tần tật sản phẩm giảm đến 70%++",
+                    ImageUrl ="/Content/Images/News/news8-2.png",
+                    PublishDate = DateTime.Now.AddDays(-23),
+                    Content =
+                    @"
+                        <h3>1.Thời gian khuyến mãi:  Từ 01/11 - 31/11/2025 </h3>
+
+                        <h3>2.Nội dung chương trình:</h3>
+                        <p>Mùa sale đã đến, hội săn hàng gia dụng không thể bỏ lỡ! Điện máy XANH tung ưu đãi ""XẢ KHO GIẢM SỐC"" cho khách đặt online: giá chỉ từ 2xx.000đ, 
+                           số lượng giới hạn 30 suất/ngày - nhanh tay săn deal, chậm là hết!!<p>
+
+                        <img src='/Content/Images/News/news8-2.png' />
+
+                        <h3>3.🎁 LỊCH SALE THÁNG 11 – KHAI MÀN MÙA MUA SẮM LỚN NHẤT NĂM</h3>
+                        <ul>
+                            <li><strong>08/11 - 11/11:</strong> 11/11 SALE NGÀY ĐÔI - DEAL VÔ ĐỐI</li>
+                            <li><strong>15/11 - 17/11:</strong> GIỮA THÁNG SĂN SALE - XẢ LÁNG SĂN DEAL</li>
+                            <li><strong>19/11 - 20/11:</strong> TRI ÂN CÔ THẦY - DEAL TỐT TRAO TAY</li>
+                            <li><strong>22/11 - 25/11:</strong> TIỆC SALE CUỐI THÁNG - DEAL SIÊU HOÀNH TRÁNG</li>
+                            <li><strong>28/11 - 30/11:</strong> VUI HALLOWEEN - SALE CỰC ĐỈNH</li>
+                        </ul>
+
+                        <h3>4.FLASH SALE GIÁ SIÊU SỐC</h3>
+                        <ul>
+                            <li><strong>5</strong> khung giờ mỗi ngày - giá giảm sâu siêu bất ngờ.</li>
+                            <li>Số lượng có hạn - chốt nhanh kẻo lỡ!</li>
+                        </ul>
+                        
+                        <h3>5.ĐẶC BIỆT, DEAL XỊN DÀNH RIÊNG CHO THÁNG 11:</h3>
+                            <ul>
+                                <li>Giảm <strong>100.000Đ</strong> khi mua sản phẩm trực tiếp tại cửa hàng, áp dụng cho đơn hàng từ 1 triệu.</li>
+                                <li>Giảm <strong>300.000Đ</strong> cho đơn từ 1 - dưới 3 triệu.</li>
+                                <li>Giảm <strong>600.000Đ</strong> cho đơn từ 3 triệu trở lên.</li>
+                            </ul>
+                        <h3>6.ƯU ĐÃI VẬN CHUYỂN </h3>
+                            <ul>
+                                <li>Freeship cho đơn hàng từ 200.000đ trong bán kính 10km.</li>
+                                <li>Đặc biệt, freeship đơn hàng từ 0đ trong bán kính 10km cho các Campaign tháng 10 và Mini-Campaign Thứ 4 Freeship diễn ra Hàng tuần.</li>
+                                <li>Với các đơn ngoài 10km, phí phụ thu: 5.000đ/km.</li>
+                            </ul>
+                        <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
+                    "
+                },
+                new NewsArticle
+                {
+                    Id = 9,
+                    Title = "12.12 GIÁNG SINH RỘN RÀNG - SĂN DEAL HOÀNH TRÁNG",
+                    ImageUrl ="/Content/Images/News/news9.png",
+                    PublishDate = DateTime.Now.AddDays(-23),
+                    Content =
+                    @"
+                        <h3>1.Thời gian khuyến mãi:  Từ 01/11 - 31/11/2025 </h3>
+
+                        <h3>2.Nội dung chương trình:</h3>
+                        <p>Mùa sale đã đến, hội săn hàng gia dụng không thể bỏ lỡ! Điện máy XANH tung ưu đãi ""XẢ KHO GIẢM SỐC"" cho khách đặt online: giá chỉ từ 2xx.000đ, 
+                           số lượng giới hạn 30 suất/ngày - nhanh tay săn deal, chậm là hết!!<p>
+
+                        <img src='/Content/Images/News/news9.png' />
+
+                        <h3>3.🎁 LỊCH SALE THÁNG 11 – KHAI MÀN MÙA MUA SẮM LỚN NHẤT NĂM</h3>
+                        <ul>
+                            <li><strong>08/11 - 11/11:</strong> 11/11 SALE NGÀY ĐÔI - DEAL VÔ ĐỐI</li>
+                            <li><strong>15/11 - 17/11:</strong> GIỮA THÁNG SĂN SALE - XẢ LÁNG SĂN DEAL</li>
+                            <li><strong>19/11 - 20/11:</strong> TRI ÂN CÔ THẦY - DEAL TỐT TRAO TAY</li>
+                            <li><strong>22/11 - 25/11:</strong> TIỆC SALE CUỐI THÁNG - DEAL SIÊU HOÀNH TRÁNG</li>
+                            <li><strong>28/11 - 30/11:</strong> VUI HALLOWEEN - SALE CỰC ĐỈNH</li>
+                        </ul>
+
+                        <h3>4.FLASH SALE GIÁ SIÊU SỐC</h3>
+                        <ul>
+                            <li><strong>5</strong> khung giờ mỗi ngày - giá giảm sâu siêu bất ngờ.</li>
+                            <li>Số lượng có hạn - chốt nhanh kẻo lỡ!</li>
+                        </ul>
+                        
+                        <h3>5.ĐẶC BIỆT, DEAL XỊN DÀNH RIÊNG CHO THÁNG 11:</h3>
+                            <ul>
+                                <li>Giảm <strong>100.000Đ</strong> khi mua sản phẩm trực tiếp tại cửa hàng, áp dụng cho đơn hàng từ 1 triệu.</li>
+                                <li>Giảm <strong>300.000Đ</strong> cho đơn từ 1 - dưới 3 triệu.</li>
+                                <li>Giảm <strong>600.000Đ</strong> cho đơn từ 3 triệu trở lên.</li>
+                            </ul>
+                        <h3>6.ƯU ĐÃI VẬN CHUYỂN </h3>
+                            <ul>
+                                <li>Freeship cho đơn hàng từ 200.000đ trong bán kính 10km.</li>
+                                <li>Đặc biệt, freeship đơn hàng từ 0đ trong bán kính 10km cho các Campaign tháng 10 và Mini-Campaign Thứ 4 Freeship diễn ra Hàng tuần.</li>
+                                <li>Với các đơn ngoài 10km, phí phụ thu: 5.000đ/km.</li>
+                            </ul>
+                        <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
+                    "
+                },
+                new NewsArticle
+                {
+                    Id = 10,
+                    Title = "Gia dụng cuối năm - Sale to giá rẻ - Ngập tràn quà tặng",
+                    ImageUrl ="/Content/Images/News/news10.png",
+                    PublishDate = DateTime.Now.AddDays(-23),
+                    Content =
+                    @"
+                        <h3>1.Thời gian khuyến mãi:  Từ 01/11 - 31/11/2025 </h3>
+
+                        <h3>2.Nội dung chương trình:</h3>
+                        <p>Mùa sale đã đến, hội săn hàng gia dụng không thể bỏ lỡ! Điện máy XANH tung ưu đãi ""XẢ KHO GIẢM SỐC"" cho khách đặt online: giá chỉ từ 2xx.000đ, 
+                           số lượng giới hạn 30 suất/ngày - nhanh tay săn deal, chậm là hết!!<p>
+
+                        <img src='/Content/Images/News/news10.png' />
+
+                        <h3>3.🎁 LỊCH SALE THÁNG 11 – KHAI MÀN MÙA MUA SẮM LỚN NHẤT NĂM</h3>
+                        <ul>
+                            <li><strong>08/11 - 11/11:</strong> 11/11 SALE NGÀY ĐÔI - DEAL VÔ ĐỐI</li>
+                            <li><strong>15/11 - 17/11:</strong> GIỮA THÁNG SĂN SALE - XẢ LÁNG SĂN DEAL</li>
+                            <li><strong>19/11 - 20/11:</strong> TRI ÂN CÔ THẦY - DEAL TỐT TRAO TAY</li>
+                            <li><strong>22/11 - 25/11:</strong> TIỆC SALE CUỐI THÁNG - DEAL SIÊU HOÀNH TRÁNG</li>
+                            <li><strong>28/11 - 30/11:</strong> VUI HALLOWEEN - SALE CỰC ĐỈNH</li>
+                        </ul>
+
+                        <h3>4.FLASH SALE GIÁ SIÊU SỐC</h3>
+                        <ul>
+                            <li><strong>5</strong> khung giờ mỗi ngày - giá giảm sâu siêu bất ngờ.</li>
+                            <li>Số lượng có hạn - chốt nhanh kẻo lỡ!</li>
+                        </ul>
+                        
+                        <h3>5.ĐẶC BIỆT, DEAL XỊN DÀNH RIÊNG CHO THÁNG 11:</h3>
+                            <ul>
+                                <li>Giảm <strong>100.000Đ</strong> khi mua sản phẩm trực tiếp tại cửa hàng, áp dụng cho đơn hàng từ 1 triệu.</li>
+                                <li>Giảm <strong>300.000Đ</strong> cho đơn từ 1 - dưới 3 triệu.</li>
+                                <li>Giảm <strong>600.000Đ</strong> cho đơn từ 3 triệu trở lên.</li>
+                            </ul>
+                        <h3>6.ƯU ĐÃI VẬN CHUYỂN </h3>
+                            <ul>
+                                <li>Freeship cho đơn hàng từ 200.000đ trong bán kính 10km.</li>
+                                <li>Đặc biệt, freeship đơn hàng từ 0đ trong bán kính 10km cho các Campaign tháng 10 và Mini-Campaign Thứ 4 Freeship diễn ra Hàng tuần.</li>
+                                <li>Với các đơn ngoài 10km, phí phụ thu: 5.000đ/km.</li>
+                            </ul>
+                        <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
+                    "
+                },
+                new NewsArticle
+                {
+                    Id = 11,
+                    Title = "Ưu Đãi Khi Đăng Ký Thành Viên Lần Đầu ",
+                    ImageUrl ="/Content/Images/News/news11.png",
+                    PublishDate = DateTime.Now.AddDays(-23),
+                    Content =
+                    @"
+                        <h3>1.Thời gian khuyến mãi:  Từ 01/11 - 31/11/2025 </h3>
+
+                        <h3>2.Nội dung chương trình:</h3>
+                        <p>Mùa sale đã đến, hội săn hàng gia dụng không thể bỏ lỡ! Điện máy XANH tung ưu đãi ""XẢ KHO GIẢM SỐC"" cho khách đặt online: giá chỉ từ 2xx.000đ, 
+                           số lượng giới hạn 30 suất/ngày - nhanh tay săn deal, chậm là hết!!<p>
+
+                        <img src='/Content/Images/News/news10.png' />
+
+                        <h3>3.🎁 LỊCH SALE THÁNG 11 – KHAI MÀN MÙA MUA SẮM LỚN NHẤT NĂM</h3>
+                        <ul>
+                            <li><strong>08/11 - 11/11:</strong> 11/11 SALE NGÀY ĐÔI - DEAL VÔ ĐỐI</li>
+                            <li><strong>15/11 - 17/11:</strong> GIỮA THÁNG SĂN SALE - XẢ LÁNG SĂN DEAL</li>
+                            <li><strong>19/11 - 20/11:</strong> TRI ÂN CÔ THẦY - DEAL TỐT TRAO TAY</li>
+                            <li><strong>22/11 - 25/11:</strong> TIỆC SALE CUỐI THÁNG - DEAL SIÊU HOÀNH TRÁNG</li>
+                            <li><strong>28/11 - 30/11:</strong> VUI HALLOWEEN - SALE CỰC ĐỈNH</li>
+                        </ul>
+
+                        <h3>4.FLASH SALE GIÁ SIÊU SỐC</h3>
+                        <ul>
+                            <li><strong>5</strong> khung giờ mỗi ngày - giá giảm sâu siêu bất ngờ.</li>
+                            <li>Số lượng có hạn - chốt nhanh kẻo lỡ!</li>
+                        </ul>
+                        
+                        <h3>5.ĐẶC BIỆT, DEAL XỊN DÀNH RIÊNG CHO THÁNG 11:</h3>
+                            <ul>
+                                <li>Giảm <strong>100.000Đ</strong> khi mua sản phẩm trực tiếp tại cửa hàng, áp dụng cho đơn hàng từ 1 triệu.</li>
+                                <li>Giảm <strong>300.000Đ</strong> cho đơn từ 1 - dưới 3 triệu.</li>
+                                <li>Giảm <strong>600.000Đ</strong> cho đơn từ 3 triệu trở lên.</li>
+                            </ul>
+                        <h3>6.ƯU ĐÃI VẬN CHUYỂN </h3>
+                            <ul>
+                                <li>Freeship cho đơn hàng từ 200.000đ trong bán kính 10km.</li>
+                                <li>Đặc biệt, freeship đơn hàng từ 0đ trong bán kính 10km cho các Campaign tháng 10 và Mini-Campaign Thứ 4 Freeship diễn ra Hàng tuần.</li>
+                                <li>Với các đơn ngoài 10km, phí phụ thu: 5.000đ/km.</li>
+                            </ul>
+                        <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
+                    "
+                },
+                new NewsArticle
+                {
+                    Id = 12,
+                    Title = "Ưu Đãi Ngập Tràng - Thanh Toán Liền Tay MoMo bên bạn",
+                    ImageUrl ="/Content/Images/News/news12.png",
+                    PublishDate = DateTime.Now.AddDays(-23),
+                    Content =
+                    @"
+                        <h3>1.Thời gian khuyến mãi:  Từ 01/11 - 31/11/2025 </h3>
+
+                        <h3>2.Nội dung chương trình:</h3>
+                        <p>Mùa sale đã đến, hội săn hàng gia dụng không thể bỏ lỡ! Điện máy XANH tung ưu đãi ""XẢ KHO GIẢM SỐC"" cho khách đặt online: giá chỉ từ 2xx.000đ, 
+                           số lượng giới hạn 30 suất/ngày - nhanh tay săn deal, chậm là hết!!<p>
+
+                        <img src='/Content/Images/News/news12.png' />
+
+                        <h3>3.🎁 LỊCH SALE THÁNG 11 – KHAI MÀN MÙA MUA SẮM LỚN NHẤT NĂM</h3>
+                        <ul>
+                            <li><strong>08/11 - 11/11:</strong> 11/11 SALE NGÀY ĐÔI - DEAL VÔ ĐỐI</li>
+                            <li><strong>15/11 - 17/11:</strong> GIỮA THÁNG SĂN SALE - XẢ LÁNG SĂN DEAL</li>
+                            <li><strong>19/11 - 20/11:</strong> TRI ÂN CÔ THẦY - DEAL TỐT TRAO TAY</li>
+                            <li><strong>22/11 - 25/11:</strong> TIỆC SALE CUỐI THÁNG - DEAL SIÊU HOÀNH TRÁNG</li>
+                            <li><strong>28/11 - 30/11:</strong> VUI HALLOWEEN - SALE CỰC ĐỈNH</li>
+                        </ul>
+
+                        <h3>4.FLASH SALE GIÁ SIÊU SỐC</h3>
+                        <ul>
+                            <li><strong>5</strong> khung giờ mỗi ngày - giá giảm sâu siêu bất ngờ.</li>
+                            <li>Số lượng có hạn - chốt nhanh kẻo lỡ!</li>
+                        </ul>
+                        
+                        <h3>5.ĐẶC BIỆT, DEAL XỊN DÀNH RIÊNG CHO THÁNG 11:</h3>
+                            <ul>
+                                <li>Giảm <strong>100.000Đ</strong> khi mua sản phẩm trực tiếp tại cửa hàng, áp dụng cho đơn hàng từ 1 triệu.</li>
+                                <li>Giảm <strong>300.000Đ</strong> cho đơn từ 1 - dưới 3 triệu.</li>
+                                <li>Giảm <strong>600.000Đ</strong> cho đơn từ 3 triệu trở lên.</li>
+                            </ul>
+                        <h3>6.ƯU ĐÃI VẬN CHUYỂN </h3>
+                            <ul>
+                                <li>Freeship cho đơn hàng từ 200.000đ trong bán kính 10km.</li>
+                                <li>Đặc biệt, freeship đơn hàng từ 0đ trong bán kính 10km cho các Campaign tháng 10 và Mini-Campaign Thứ 4 Freeship diễn ra Hàng tuần.</li>
+                                <li>Với các đơn ngoài 10km, phí phụ thu: 5.000đ/km.</li>
+                            </ul>
+                        <p>Nhanh tay săn deal cực khủng, mua sắm cực thích chỉ có tại MWG Shop! Truy cập ngay MWG Shop trong app Quà Tặng VIP để săn ưu đãi mỗi ngày!</p>
+                    "
+                },
             };
         }
 

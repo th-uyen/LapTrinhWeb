@@ -8,90 +8,99 @@
 
 <div class="profile-container">
 
-    @Html.Partial("Dasboard") 
+    @Html.Partial("Dasboard")
 
-        <main class="profile-content">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold mb-0">
-                    <i class="bi bi-geo-alt me-2"></i>Sổ địa chỉ
-                </h3>
-                <a href="@Url.Action("CreateAddress")" class="btn btn-success">
-                    <i class="bi bi-plus-lg me-2"></i>Thêm địa chỉ mới
-                </a>
+    <main class="profile-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-geo-alt me-2"></i>Danh Sách Địa Chỉ
+            </h3>
+            <a href="@Url.Action("CreateAddress")" class="btn btn-success">
+                <i class="bi bi-plus-lg me-2"></i>Thêm địa chỉ mới
+            </a>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show">
+                <i class="bi bi-check-circle me-2"></i>@TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
+        }
 
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="alert alert-success alert-dismissible fade show">
-                    <i class="bi bi-check-circle me-2"></i>@TempData["SuccessMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            }
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="row g-3">
+                @foreach (var address in Model)
+                {
+                    <div class="col-md-6">
+                        <div class="address-card @(address.isDefault ? "default" : "")">
 
-            @if (Model != null && Model.Count > 0)
-            {
-                <div class="row g-3">
-                    @foreach (var address in Model)
-                    {
-                        <div class="col-md-6">
-                            <div class="address-card @(address.isDefault ? "default" : "")">
+                            @if (address.isDefault)
+                            {
+                                <span class="badge-default">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Mặc định
+                                </span>
+                            }
 
-                                @if (address.isDefault)
+                            <div class="address-info">
+                                <h5>@address.accountUsername</h5>
+                                <p class="mb-2">
+                                    <i class="bi bi-telephone me-2"></i>@address.accountPhoneNumber
+                                </p>
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt me-2"></i>
+                                    @address.content
+                                </p>
+                            </div>
+
+                            <div class="address-actions">
+                                <a href="@Url.Action("EditAddress", new { id = address.account_address_id })"
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil me-1"></i>Sửa
+                                </a>
+
+                                @if (!address.isDefault)
                                 {
-                                    <span class="badge-default">
-                                        <i class="bi bi-check-circle-fill me-1"></i>Mặc định
-                                    </span>
+
+                                    <form action="@Url.Action("SetDefaultAddress", "Account")" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@address.account_address_id" />
+                                        <button type="submit" class="btn btn-outline-success btn-sm">
+                                            Đặt làm mặc định
+                                        </button>
+                                    </form>
+
+
                                 }
 
-                                <div class="address-info">
-                                    <h5>@address.accountUsername</h5>
-                                    <p class="mb-2">
-                                        <i class="bi bi-telephone me-2"></i>@address.accountPhoneNumber
-                                    </p>
-                                    <p class="text-muted mb-0">
-                                        <i class="bi bi-geo-alt me-2"></i>
-                                        @address.content
-                                    </p>
-                                </div>
-
-                                <div class="address-actions">
-                                    <a href="@Url.Action("EditAddress", new { id = address.account_address_id })"
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil me-1"></i>Sửa
-                                    </a>
-
-                                    @if (!address.isDefault)
-                                    {
-                                        <button class="btn btn-sm btn-outline-success btn-set-default"
-                                                data-id="@address.account_address_id">
-                                            <i class="bi bi-star me-1"></i>Đặt mặc định
-                                        </button>
-                                    }
-
-                                    <button class="btn btn-sm btn-outline-danger btn-delete"
-                                            data-id="@address.account_address_id"
-                                            data-name="@address.accountUsername">
+                                <form action="@Url.Action("DeleteAddress", "Account")" method="post" style="display:inline-block;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@address.account_address_id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Bạn có chắc muốn xóa địa chỉ này không?');">
                                         <i class="bi bi-trash"></i>
                                     </button>
-                                </div>
+                                </form>
 
                             </div>
-                        </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="empty-state">
-                    <i class="bi bi-geo-alt"></i>
-                    <p>Chưa có địa chỉ nào</p>
-                    <a href="@Url.Action("CreateAddress")" class="btn btn-success">
-                        <i class="bi bi-plus-lg me-2"></i>Thêm địa chỉ đầu tiên
-                    </a>
-                </div>
-            }
 
-        </main>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="bi bi-geo-alt"></i>
+                <p>Chưa có địa chỉ nào</p>
+                <a href="@Url.Action("CreateAddress")" class="btn btn-success">
+                    <i class="bi bi-plus-lg me-2"></i>Thêm địa chỉ đầu tiên
+                </a>
+            </div>
+        }
+
+    </main>
 </div>
 
 <style>
@@ -166,53 +175,5 @@
         }
 </style>
 
-@section scripts {
-    <script>
-    $(document).ready(function() {
-        // XÓA ĐỊA CHỈ
-        $('.btn-delete').click(function() {
-            var id = $(this).data('id');
-            var name = $(this).data('name');
 
-            if (confirm('Bạn có chắc muốn xóa địa chỉ của "' + name + '"?')) {
-                $.ajax({
-                    url: '@Url.Action("DeleteAddress")',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    }
-                });
-            }
-        });
-
-        // ĐẶT ĐỊA CHỈ MẶC ĐỊNH
-        $('.btn-set-default').click(function() {
-            var id = $(this).data('id');
-
-            $.ajax({
-                url: '@Url.Action("SetDefaultAddress")',
-                type: 'POST',
-                data: { id: id },
-                success: function(response) {
-                    if (response.success) {
-                        toastr.success(response.message);
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                    } else {
-                        toastr.error(response.message);
-                    }
-                }
-            });
-        });
-    });
-    </script>
 }
