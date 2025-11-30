@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    :root {
+        --elmich-red: #e3000f;
+        --elmich-green: #008a37;
+        --elmich-gray: #f4f4f4;
+    }
+
+    .about-header {
+        background: url('https://elmich.vn/wp-content/uploads/2023/08/banner-gioi-thieu.jpg') no-repeat center center;
+        background-size: cover;
+        height: 350px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .section-title {
+        color: var(--elmich-green);
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--elmich-red);
+            margin: 10px auto;
+        }
+
+    .timeline-item {
+        padding: 20px;
+        border-left: 4px solid var(--elmich-green);
+        position: relative;
+        margin-bottom: 20px;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .timeline-year {
+        font-weight: bold;
+        color: var(--elmich-red);
+        font-size: 1.2rem;
+    }
+    .vision-mission-box {
+        background: var(--elmich-gray);
+        padding: 40px;
+        border-radius: 10px;
+        height: 100%;
+        transition: 0.3s;
+    }
+
+        .vision-mission-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    .vm-icon {
+        font-size: 40px;
+        color: var(--elmich-green);
+        margin-bottom: 15px;
+    }
+    .core-value-card {
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        height: 100%;
+    }
+
+        .core-value-card h4 {
+            color: var(--elmich-green);
+            font-weight: bold;
+        }
+    .meaning-item strong {
+        color: var(--elmich-red);
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="about-header">
+    <div class="text-center">
+        <h1 style="font-size: 3rem; font-weight: bold;">VỀ ELMICH</h1>
+        <p style="font-size: 1.2rem;">Chuẩn Châu Âu - Vì sức khỏe gia đình Việt</p>
+    </div>
+</div>
+
+<div class="container py-5">
+
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h2 class="section-title text-start">Câu chuyện thương hiệu</h2>
+            <p class="lead text-justify">
+                Năm 1995, Tổng công ty Elmich được thành lập tại Ostrava, Cộng hòa Séc. Trải qua hành trình gần 30 năm phát triển, Elmich đã trở thành Tập đoàn sản xuất và kinh doanh đồ gia dụng tầm cỡ Châu Âu.
+            </p>
+            <p>
+                Tại Việt Nam, Elmich chính thức có mặt từ năm 2011 và nhanh chóng chiếm được lòng tin của người tiêu dùng nhờ chất lượng vượt trội, an toàn cho sức khỏe và thiết kế sang trọng. Chúng tôi tự hào sở hữu nhà máy quy mô lớn tại Hà Nam với dây chuyền sản xuất hàng đầu Đông Nam Á.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <img src="https://elmich.vn/wp-content/uploads/2023/08/nha-may-elmich.jpg" class="img-fluid rounded shadow" alt="Nhà máy Elmich" onerror="this.src='https://via.placeholder.com/600x400?text=Elmich+Factory'" />
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-6 mb-4">
+            <div class="vision-mission-box">
+                <div class="vm-icon">👁️</div>
+                <h3>TẦM NHÌN</h3>
+                <p>Dẫn đầu trong việc cung cấp các giải pháp gia dụng thông minh và toàn diện. Trở thành doanh nghiệp số tiên phong, mang đến trải nghiệm cá nhân hóa và kiến tạo tương lai xanh, thịnh vượng.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="vision-mission-box">
+                <div class="vm-icon">🎯</div>
+                <h3>SỨ MỆNH</h3>
+                <p>Mang đến cho người tiêu dùng những sản phẩm chuẩn Châu Âu, an toàn tuyệt đối cho sức khỏe, thân thiện với môi trường và hướng tới một tương lai bền vững.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">5 GIÁ TRỊ CỐT LÕI</h2>
+    <p class="text-center mb-5">"Khách – Bền – Chuyên – Đổi – Chất"</p>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4 col-sm-6">
+            <div class="core-value-card">
+                <h4>KHÁCH HÀNG</h4>
+                <p>Là trọng tâm. Mang lại trải nghiệm xuất sắc và cá nhân hóa cho từng gia đình.</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="core-value-card">
+                <h4>BỀN VỮNG</h4>
+                <p>Tôn trọng và bảo vệ môi trường, hướng đến cuộc sống xanh cho thế hệ mai sau.</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="core-value-card">
+                <h4>CHUYÊN NGHIỆP</h4>
+                <p>Đội ngũ nhân sự chuyên môn cao, tận tâm và tuân thủ nghiêm ngặt quy trình.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 mt-4">
+            <div class="core-value-card">
+                <h4>ĐỔI MỚI</h4>
+                <p>Không ngừng sáng tạo trong công nghệ và thiết kế để dẫn đầu thị trường.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 mt-4">
+            <div class="core-value-card">
+                <h4>CHẤT LƯỢNG</h4>
+                <p>Cam kết sản phẩm đạt chuẩn Châu Âu và độ tin cậy tuyệt đối.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">LỊCH SỬ HÌNH THÀNH</h2>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="timeline-item">
+                <div class="timeline-year">1995</div>
+                <p>Thành lập Tổng công ty Elmich tại Ostrava, Cộng hòa Séc.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2011</div>
+                <p>Chính thức bước chân vào thị trường Việt Nam, khai trương showroom đầu tiên tại Hà Nội.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2015</div>
+                <p>Khánh thành nhà máy sản xuất tại Hà Nam rộng 5 hecta với công suất 7 triệu thành phẩm/năm.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2019 - Nay</div>
+                <p>Mở rộng mạng lưới với 40 showroom và hơn 15.000 đại lý trên toàn quốc, khẳng định vị thế số 1 về gia dụng cao cấp.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 p-4 border rounded bg-light">
+        <h3 class="text-center mb-4" style="color: var(--elmich-green);">Ý NGHĨA THƯƠNG HIỆU ELMICH</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li class="mb-2 meaning-item"><strong>E</strong> - Excellence (Sự xuất sắc)</li>
+                    <li class="mb-2 meaning-item"><strong>L</strong> - Lifestyle (Phong cách sống)</li>
+                    <li class="mb-2 meaning-item"><strong>M</strong> - Modernity (Tính hiện đại)</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li class="mb-2 meaning-item"><strong>I</strong> - Innovation (Sự đổi mới)</li>
+                    <li class="mb-2 meaning-item"><strong>C</strong> - Commitment (Cam kết)</li>
+                    <li class="mb-2 meaning-item"><strong>H</strong> - Harmony (Hài hòa)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
