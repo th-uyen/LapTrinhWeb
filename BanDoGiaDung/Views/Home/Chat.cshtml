@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    .chat-container {
+        max-width: 600px;
+        margin: 30px auto;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .chat-header {
+        background: #008a37; /* Màu xanh Elmich */
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .chat-box {
+        height: 400px;
+        overflow-y: auto;
+        padding: 15px;
+        background: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message {
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        max-width: 80%;
+        word-wrap: break-word;
+    }
+
+    .user-message {
+        background: #008a37;
+        color: white;
+        align-self: flex-end; /* Nằm bên phải */
+        border-bottom-right-radius: 2px;
+    }
+
+    .bot-message {
+        background: #e0e0e0;
+        color: #333;
+        align-self: flex-start; /* Nằm bên trái */
+        border-bottom-left-radius: 2px;
+    }
+
+    .input-area {
+        display: flex;
+        padding: 10px;
+        background: white;
+        border-top: 1px solid #ddd;
+    }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .input-area button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background: #008a37;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+            .input-area button:hover {
+                background: #006d2b;
+            }
+</style>
+
+<div class="chat-container">
+    <div class="chat-header">
+        🤖 Trợ lý ảo Elmich (Gemini AI)
+    </div>
+    <div class="chat-box" id="chatBox">
+        <div class="message bot-message">
+            Xin chào! Tui là trợ lý ảo của Elmich. Bạn cần hỗ trợ gì về sản phẩm không ạ?
+        </div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userMessage" placeholder="Nhập câu hỏi của bạn..." onkeypress="handleEnter(event)">
+        <button onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function handleEnter(e) {
+        if (e.keyCode === 13) {
+            sendMessage();
+        }
+    }
+
+    function sendMessage() {
+        var message = $('#userMessage').val();
+        if (message.trim() === "") return;
+
+        // 1. Hiện tin nhắn của người dùng lên màn hình
+        $('#chatBox').append('<div class="message user-message">' + message + '</div>');
+        $('#userMessage').val('');
+        scrollToBottom();
+
+        // 2. Hiện thông báo "Đang gõ..."
+        var loadingId = 'loading_' + Date.now();
+        $('#chatBox').append('<div class="message bot-message" id="' + loadingId + '"><i>Đang trả lời...</i></div>');
+        scrollToBottom();
+
+        // 3. Gửi AJAX về Server
+        $.ajax({
+            url: '@Url.Action("SendMessageToGemini", "Home")',
+            type: 'POST',
+            data: { userMessage: message },
+            success: function (res) {
+                $('#' + loadingId).remove(); // Xóa chữ đang trả lời
+                if (res.success) {
+                    // Hiện câu trả lời của AI
+                    $('#chatBox').append('<div class="message bot-message">' + res.reply + '</div>');
+                } else {
+                    $('#chatBox').append('<div class="message bot-message" style="color:red">Lỗi: ' + res.reply + '</div>');
+                }
+                scrollToBottom();
+            },
+            error: function () {
+                $('#' + loadingId).remove();
+                $('#chatBox').append('<div class="message bot-message" style="color:red">Mất kết nối server!</div>');
+            }
+        });
+    }
+
+    function scrollToBottom() {
+        var chatBox = document.getElementById("chatBox");
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
