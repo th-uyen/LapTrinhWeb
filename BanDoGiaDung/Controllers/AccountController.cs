@@ -140,6 +140,7 @@ namespace BanDoGiaDung.Controllers
 
             return RedirectToAction("Login", "Account");
         }
+        
 
         [HttpGet]
         public ActionResult ChangePassword()

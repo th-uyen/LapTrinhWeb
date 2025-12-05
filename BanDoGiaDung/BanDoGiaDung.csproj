@@ -324,7 +324,6 @@
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Banner.cshtml" />
-    <Content Include="Views\Home\Benefits.cshtml" />
     <Content Include="Views\Home\NewProducts.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -340,6 +339,9 @@
     <Content Include="Views\Account\Address.cshtml" />
     <Content Include="Views\Account\CreateAddress.cshtml" />
     <Content Include="Views\Account\EditAddress.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Home\Benefits.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -351,7 +353,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Scripts\UserJS\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202511111031295_ThemBangLucDau_DaSuaLoi.resx">

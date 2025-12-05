@@ -1,0 +1,273 @@
+﻿@model List<BanDoGiaDung.Models.Product>
+@using BanDoGiaDung.Models
+
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+
+    var brands = ViewBag.Brands as List<Brand>;
+    var genres = ViewBag.Genres as List<Genre>;
+
+    int page = ViewBag.Page;
+    int pageSize = ViewBag.PageSize;
+    int total = ViewBag.Total;
+    int totalPage = (int)Math.Ceiling((double)total / pageSize);
+}
+
+<style>
+    /* PAGE LAYOUT */
+    .product-page {
+        max-width: 1350px;
+        margin: 30px auto;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 30px;
+    }
+
+    /* SIDEBAR --------------------------------------------- */
+    .sidebar-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+
+    .tag-item {
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid #dee2e6;
+        background: #f8f9fa;
+        font-size: 14px;
+        color: #212529;
+        transition: .15s;
+    }
+
+        .tag-item:hover {
+            background: darkgreen;
+            color: white;
+            border-color: darkgreen;
+        }
+
+        .tag-item.active {
+            background: darkgreen;
+            color: white;
+            border-color: darkgreen;
+        }
+
+    /* FILTER PRICE */
+    .filter-box input {
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid #ced4da;
+    }
+
+    .filter-box button {
+        width: 100%;
+        background: darkgreen;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+    }
+
+    /* SORT BAR --------------------------------------------- */
+    .sort-bar {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .sort-btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        background: white;
+        transition: .15s;
+    }
+
+        .sort-btn:hover {
+            border-color: darkgreen;
+            color: darkgreen;
+        }
+
+        .sort-btn.active {
+            border-color: darkgreen;
+            background: darkgreen;
+            color: white;
+            font-weight: 600;
+        }
+
+
+    /* PRODUCT GRID ----------------------------------------- */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .product-card {
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #dee2e6;
+        background: white;
+        text-decoration: none;
+        color: inherit;
+        transition: .2s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+    .product-name {
+        font-weight: 600;
+        font-size: 15px;
+        min-height: 40px;
+        overflow: hidden;
+    }
+
+    .product-price {
+        color: #e60000;
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    /* PAGINATION -------------------------------------------- */
+    .pagination a {
+        border-radius: 8px !important;
+        padding: 8px 14px;
+        margin: 3px;
+        border: 1px solid #dee2e6;
+        transition: .15s;
+    }
+
+        .pagination a:hover {
+            border-color: darkgreen !important;
+            color: darkgreen !important;
+        }
+
+    .pagination .active > a {
+        background: darkgreen !important;
+        border-color: darkgreen !important;
+        color: white !important;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
+
+
+<div class="product-page">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+
+
+
+        <!-- HÃNG -->
+        <div class="sidebar-title" style="margin-top:25px;">HÃNG</div>
+        <div class="tag-list">
+            @foreach (var b in ViewBag.Brands)
+            {
+                <a class="tag-item @(ViewBag.Brand == b.brand_id ? "active" : "")"
+                   href="@Url.Action("Index", new { brand = b.brand_id })">
+                    @b.brand_name
+                </a>
+            }
+        </div>
+
+        <!-- LOẠI SẢN PHẨM -->
+        <div class="sidebar-title" style="margin-top:25px;">LOẠI SẢN PHẨM</div>
+        <div class="tag-list">
+            @foreach (var g in ViewBag.Genres)
+            {
+                <a class="tag-item @(ViewBag.Genre == g.genre_id ? "active" : "")"
+                   href="@Url.Action("Index", new { genre = g.genre_id })">
+                    @g.genre_name
+                </a>
+            }
+        </div>
+
+    </div>
+
+
+
+    <!-- MAIN CONTENT -->
+    <div>
+
+        <!-- SORT BAR -->
+        <div class="sort-bar">
+            <span style="font-weight:bold">Sắp xếp:</span>
+
+            <a class="sort-btn @(ViewBag.Sort == null ? "active" : "")"
+               href="@Url.Action("Index")">Mặc định</a>
+
+            <a class="sort-btn @(ViewBag.Sort == "az" ? "active" : "")"
+               href="@Url.Action("Index", new { sort = "az" })">A → Z</a>
+
+            <a class="sort-btn @(ViewBag.Sort == "za" ? "active" : "")"
+               href="@Url.Action("Index", new { sort = "za" })">Z → A</a>
+
+            <a class="sort-btn @(ViewBag.Sort == "price_asc" ? "active" : "")"
+               href="@Url.Action("Index", new { sort = "price_asc" })">Giá tăng dần</a>
+
+            <a class="sort-btn @(ViewBag.Sort == "price_desc" ? "active" : "")"
+               href="@Url.Action("Index", new { sort = "price_desc" })">Giá giảm dần</a>
+
+            <a class="sort-btn @(ViewBag.Sort == "newest" ? "active" : "")"
+               href="@Url.Action("Index", new { sort = "newest" })">Mới nhất</a>
+
+            <a class="sort-btn @(ViewBag.Sort == "oldest" ? "active" : "")"
+               href="@Url.Action("Index", new { sort = "oldest" })">Cũ nhất</a>
+        </div>
+
+
+        <!-- PRODUCT GRID -->
+        <div class="grid">
+            @foreach (var p in Model)
+            {
+                <a class="product-card" href="/Product/Details/@p.product_id">
+                    <img src="@p.image" />
+                    <div class="product-name">@p.product_name</div>
+                    <div class="product-price">@String.Format("{0:N0} ₫", p.price)</div>
+                </a>
+            }
+        </div>
+
+
+
+        <!-- PAGINATION -->
+        <div style="margin-top: 25px; text-align:center;">
+            @for (int i = 1; i <= totalPage; i++)
+            {
+                <a style="padding:8px 14px; border:1px solid #ddd; margin:3px; border-radius:6px;
+                           background:@(i == page ? "darkgreen" : "white");
+                           color:@(i == page ? "white" : "black");"
+                   href="@Url.Action("Index", new { page = i })">
+                    @i
+                </a>
+            }
+        </div>
+
+    </div>
+
+</div>

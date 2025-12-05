@@ -21,7 +21,7 @@
         top: 40%;
         width: 42px;
         height: 42px;
-        background: #e60000;
+        background: darkgreen;
         color: white;
         border-radius: 50%;
         display: flex;
@@ -66,6 +66,7 @@
         position: relative;
         transition: 0.25s;
         box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        text-decoration: none !important;
     }
 
         .product-card:hover {
@@ -109,7 +110,7 @@
     .cart-btn {
         width: 40px;
         height: 40px;
-        background: #e60000;
+        background: darkgreen;
         color: white;
         border-radius: 50%;
         display: flex;
@@ -123,7 +124,7 @@
     }
 
         .cart-btn:hover {
-            background: #cc0000;
+            background: #4CAF50;
         }
 </style>
 
@@ -138,7 +139,7 @@
 
         @foreach (var p in Model)
         {
-            <div class="product-card">
+            <a class="product-card" href="/Product/Details/@p.product_id">
                 <img src="@p.image" />
 
                 <div class="product-info">
@@ -148,7 +149,7 @@
 
                     <div class="cart-btn">🛒</div>
                 </div>
-            </div>
+            </a>
         }
 
     </div>
@@ -156,6 +157,27 @@
 
 <script>
     function scrollNewProducts(amount) {
-        document.getElementById("newProductsList").scrollLeft += amount;
+        const list = document.getElementById("newProductsList");
+        const start = list.scrollLeft;
+        const target = start + amount;
+        const duration = 350;
+        let startTime = null;
+
+        function anim(time) {
+            if (!startTime) startTime = time;
+            let progress = (time - startTime) / duration;
+            if (progress > 1) progress = 1;
+
+            // easing mượt
+            let eased = 1 - Math.pow(1 - progress, 3);
+
+            list.scrollLeft = start + (target - start) * eased;
+
+            if (progress < 1) requestAnimationFrame(anim);
+        }
+
+        requestAnimationFrame(anim);
     }
 </script>
+
+

@@ -1,0 +1,162 @@
+﻿@model BanDoGiaDung.Models.Product
+@using BanDoGiaDung.Models
+
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    var related = ViewBag.Related as List<Product>;
+}
+
+<style>
+    .detail-wrapper {
+        max-width: 1250px;
+        margin: 30px auto;
+    }
+
+    /* ẢNH SẢN PHẨM */
+    .product-img {
+        width: 100%;
+        height: 420px;
+        object-fit: contain;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        background: #fff;
+        padding: 15px;
+    }
+
+    /* THÔNG TIN */
+    .product-name {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #222;
+    }
+
+    .product-price {
+        font-size: 28px;
+        font-weight: bold;
+        color: #e60000;
+        margin-bottom: 20px;
+    }
+
+    .info-box div {
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+
+    .add-cart {
+        padding: 12px 20px;
+        background: darkgreen;
+        color: white;
+        border-radius: 8px;
+        border: none;
+        font-size: 17px;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+        .add-cart:hover {
+            background: #0d5d0d;
+        }
+
+    /* GỢI Ý */
+    .related-title {
+        margin-top: 40px;
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 15px;
+    }
+
+    .related-item {
+        border: 1px solid #eee;
+        border-radius: 12px;
+        padding: 12px;
+        background: white;
+        text-align: center;
+        cursor: pointer;
+        transition: .25s;
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .related-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .related-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+    .related-name {
+        font-size: 15px;
+        font-weight: 600;
+        height: 40px;
+        overflow: hidden;
+    }
+
+    .related-price {
+        font-size: 17px;
+        font-weight: bold;
+        color: #e60000;
+    }
+</style>
+
+
+<div class="detail-wrapper">
+
+    <div class="row g-4">
+
+        <!-- ẢNH -->
+        <div class="col-md-5">
+            <img src="@Model.image" class="product-img" />
+        </div>
+
+        <!-- THÔNG TIN -->
+        <div class="col-md-7">
+            <div class="product-name">@Model.product_name</div>
+
+            <div class="product-price">@String.Format("{0:N0} ₫", Model.price)</div>
+
+            <div class="info-box">
+                <div><b>Thương hiệu:</b> @Model.Brand.brand_name</div>
+                <div><b>Loại sản phẩm:</b> @Model.Genre.genre_name</div>
+                <div><b>Ngày tạo:</b> @Model.create_at.ToString("dd/MM/yyyy")</div>
+            </div>
+
+            <button class="add-cart">
+                <i class="bi bi-cart me-2"></i> Thêm vào giỏ hàng
+            </button>
+
+            <div class="mt-4">
+                <h5>Mô tả sản phẩm</h5>
+                <p>@Html.Raw(Model.description)</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- SẢN PHẨM LIÊN QUAN -->
+    <div class="related-title">Sản phẩm liên quan</div>
+
+    <div class="related-grid">
+        @foreach (var p in related)
+        {
+            <a href="/Product/Details/@p.product_id" class="related-item">
+                <img src="@p.image" />
+
+                <div class="related-name">@p.product_name</div>
+                <div class="related-price">@String.Format("{0:N0} ₫", p.price)</div>
+            </a>
+        }
+    </div>
+</div>

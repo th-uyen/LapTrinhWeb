@@ -28,6 +28,7 @@
         transition: .25s;
         cursor: pointer;
         text-align: center;
+        text-decoration: none !important;
     }
 
         .best-item:hover {
@@ -66,7 +67,7 @@
     <div class="best-grid">
         @foreach (var p in Model)
         {
-            <div class="best-item">
+            <a class="best-item" href="/Product/Details/@p.product_id">
                 <img src="@p.image" />
 
                 <div class="best-name">@p.product_name</div>
@@ -74,7 +75,7 @@
                 <div class="best-price">
                     @String.Format("{0:N0} ₫", p.price)
                 </div>
-            </div>
+            </a>
         }
     </div>
 </div>
