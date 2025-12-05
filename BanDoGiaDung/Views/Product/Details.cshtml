@@ -1,9 +1,6 @@
-﻿@model BanDoGiaDung.Models.Product
-@using BanDoGiaDung.Models
-
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
-    var related = ViewBag.Related as List<Product>;
+    int id = ViewBag.Id;   // ProductController đã truyền ID qua ViewBag
 }
 
 <style>
@@ -12,7 +9,6 @@
         margin: 30px auto;
     }
 
-    /* ẢNH SẢN PHẨM */
     .product-img {
         width: 100%;
         height: 420px;
@@ -23,7 +19,6 @@
         padding: 15px;
     }
 
-    /* THÔNG TIN */
     .product-name {
         font-size: 26px;
         font-weight: 700;
@@ -58,7 +53,6 @@
             background: #0d5d0d;
         }
 
-    /* GỢI Ý */
     .related-title {
         margin-top: 40px;
         font-size: 22px;
@@ -117,19 +111,20 @@
 
         <!-- ẢNH -->
         <div class="col-md-5">
-            <img src="@Model.image" class="product-img" />
+            <img id="imgProduct" class="product-img" />
         </div>
 
         <!-- THÔNG TIN -->
         <div class="col-md-7">
-            <div class="product-name">@Model.product_name</div>
 
-            <div class="product-price">@String.Format("{0:N0} ₫", Model.price)</div>
+            <div id="productName" class="product-name"></div>
+
+            <div id="productPrice" class="product-price"></div>
 
             <div class="info-box">
-                <div><b>Thương hiệu:</b> @Model.Brand.brand_name</div>
-                <div><b>Loại sản phẩm:</b> @Model.Genre.genre_name</div>
-                <div><b>Ngày tạo:</b> @Model.create_at.ToString("dd/MM/yyyy")</div>
+                <div><b>Thương hiệu:</b> <span id="brandName"></span></div>
+                <div><b>Loại sản phẩm:</b> <span id="genreName"></span></div>
+                <div><b>Ngày tạo:</b> <span id="createdDate"></span></div>
             </div>
 
             <button class="add-cart">
@@ -138,7 +133,7 @@
 
             <div class="mt-4">
                 <h5>Mô tả sản phẩm</h5>
-                <p>@Html.Raw(Model.description)</p>
+                <p id="description"></p>
             </div>
         </div>
 
@@ -148,15 +143,61 @@
     <!-- SẢN PHẨM LIÊN QUAN -->
     <div class="related-title">Sản phẩm liên quan</div>
 
-    <div class="related-grid">
-        @foreach (var p in related)
-        {
-            <a href="/Product/Details/@p.product_id" class="related-item">
-                <img src="@p.image" />
-
-                <div class="related-name">@p.product_name</div>
-                <div class="related-price">@String.Format("{0:N0} ₫", p.price)</div>
-            </a>
-        }
-    </div>
+    <div id="relatedGrid" class="related-grid"></div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    let id = @id;
+
+    // Load sản phẩm chi tiết
+    function loadProduct() {
+
+        $.ajax({
+            url: "/api/productapi/" + id,
+            method: "GET",
+            success: function (p) {
+
+                $("#imgProduct").attr("src", p.image);
+                $("#productName").text(p.product_name);
+                $("#productPrice").text(p.price.toLocaleString() + " ₫");
+
+                $("#brandName").text(p.brand_name);
+                $("#genreName").text(p.genre_name);
+                $("#createdDate").text(p.create_at);
+                $("#description").html(p.description);
+            }
+        });
+    }
+
+    // Load sản phẩm liên quan
+    function loadRelated() {
+        $.ajax({
+            url: "/api/productapi/related/" + id,
+            method: "GET",
+            success: function (list) {
+
+                let html = "";
+                list.forEach(p => {
+                    html += `
+                    <a href="/Product/Details/${p.product_id}" class="related-item">
+                        <img src="${p.image}" />
+                        <div class="related-name">${p.product_name}</div>
+                        <div class="related-price">${p.price.toLocaleString()} ₫</div>
+                    </a>`;
+                });
+
+                $("#relatedGrid").html(html);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadProduct();
+        loadRelated();
+    });
+
+</script>

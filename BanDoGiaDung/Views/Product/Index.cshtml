@@ -4,13 +4,6 @@
 @{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 
-    var brands = ViewBag.Brands as List<Brand>;
-    var genres = ViewBag.Genres as List<Genre>;
-
-    int page = ViewBag.Page;
-    int pageSize = ViewBag.PageSize;
-    int total = ViewBag.Total;
-    int totalPage = (int)Math.Ceiling((double)total / pageSize);
 }
 
 <style>
@@ -180,36 +173,15 @@
     <!-- SIDEBAR -->
     <div class="sidebar">
 
-
-
-
-        <!-- HÃNG -->
+        <!-- BRAND -->
         <div class="sidebar-title" style="margin-top:25px;">HÃNG</div>
-        <div class="tag-list">
-            @foreach (var b in ViewBag.Brands)
-            {
-                <a class="tag-item @(ViewBag.Brand == b.brand_id ? "active" : "")"
-                   href="@Url.Action("Index", new { brand = b.brand_id })">
-                    @b.brand_name
-                </a>
-            }
-        </div>
+        <div id="brandList" class="tag-list"></div>
 
-        <!-- LOẠI SẢN PHẨM -->
+        <!-- GENRE -->
         <div class="sidebar-title" style="margin-top:25px;">LOẠI SẢN PHẨM</div>
-        <div class="tag-list">
-            @foreach (var g in ViewBag.Genres)
-            {
-                <a class="tag-item @(ViewBag.Genre == g.genre_id ? "active" : "")"
-                   href="@Url.Action("Index", new { genre = g.genre_id })">
-                    @g.genre_name
-                </a>
-            }
-        </div>
+        <div id="genreList" class="tag-list"></div>
 
     </div>
-
-
 
     <!-- MAIN CONTENT -->
     <div>
@@ -218,56 +190,158 @@
         <div class="sort-bar">
             <span style="font-weight:bold">Sắp xếp:</span>
 
-            <a class="sort-btn @(ViewBag.Sort == null ? "active" : "")"
-               href="@Url.Action("Index")">Mặc định</a>
-
-            <a class="sort-btn @(ViewBag.Sort == "az" ? "active" : "")"
-               href="@Url.Action("Index", new { sort = "az" })">A → Z</a>
-
-            <a class="sort-btn @(ViewBag.Sort == "za" ? "active" : "")"
-               href="@Url.Action("Index", new { sort = "za" })">Z → A</a>
-
-            <a class="sort-btn @(ViewBag.Sort == "price_asc" ? "active" : "")"
-               href="@Url.Action("Index", new { sort = "price_asc" })">Giá tăng dần</a>
-
-            <a class="sort-btn @(ViewBag.Sort == "price_desc" ? "active" : "")"
-               href="@Url.Action("Index", new { sort = "price_desc" })">Giá giảm dần</a>
-
-            <a class="sort-btn @(ViewBag.Sort == "newest" ? "active" : "")"
-               href="@Url.Action("Index", new { sort = "newest" })">Mới nhất</a>
-
-            <a class="sort-btn @(ViewBag.Sort == "oldest" ? "active" : "")"
-               href="@Url.Action("Index", new { sort = "oldest" })">Cũ nhất</a>
+            <a onclick="changeSort('')" class="sort-btn">Mặc định</a>
+            <a onclick="changeSort('az')" class="sort-btn">A → Z</a>
+            <a onclick="changeSort('za')" class="sort-btn">Z → A</a>
+            <a onclick="changeSort('price_asc')" class="sort-btn">Giá tăng dần</a>
+            <a onclick="changeSort('price_desc')" class="sort-btn">Giá giảm dần</a>
+            <a onclick="changeSort('newest')" class="sort-btn">Mới nhất</a>
+            <a onclick="changeSort('oldest')" class="sort-btn">Cũ nhất</a>
         </div>
-
 
         <!-- PRODUCT GRID -->
-        <div class="grid">
-            @foreach (var p in Model)
-            {
-                <a class="product-card" href="/Product/Details/@p.product_id">
-                    <img src="@p.image" />
-                    <div class="product-name">@p.product_name</div>
-                    <div class="product-price">@String.Format("{0:N0} ₫", p.price)</div>
-                </a>
-            }
-        </div>
-
-
+        <div id="productGrid" class="grid"></div>
 
         <!-- PAGINATION -->
-        <div style="margin-top: 25px; text-align:center;">
-            @for (int i = 1; i <= totalPage; i++)
-            {
-                <a style="padding:8px 14px; border:1px solid #ddd; margin:3px; border-radius:6px;
-                           background:@(i == page ? "darkgreen" : "white");
-                           color:@(i == page ? "white" : "black");"
-                   href="@Url.Action("Index", new { page = i })">
-                    @i
-                </a>
-            }
-        </div>
+        <div id="pagination" style="margin-top:25px; text-align:center;"></div>
 
     </div>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    let filter = {
+        brand: null,
+        genre: null,
+        sort: "default",
+        page: 1
+    };
+
+
+
+    // Load brand + genre
+    function loadFilters() {
+        $.get("/api/brandapi", function (data) {
+            let html = "";
+            data.forEach(b => {
+                html += `<a class="tag-item" onclick="selectBrand(${b.brand_id})">${b.brand_name}</a>`;
+            });
+            $("#brandList").html(html);
+        });
+
+        $.get("/api/genreapi", function (data) {
+            let html = "";
+            data.forEach(g => {
+                html += `<a class="tag-item" onclick="selectGenre(${g.genre_id})">${g.genre_name}</a>`;
+            });
+            $("#genreList").html(html);
+        });
+    }
+
+    function selectBrand(id) {
+        filter.brand = id;
+        filter.genre = null;       // 🔥 reset genre
+        filter.page = 1;           // 🔥 reset trang
+        filter.sort = "default";   // 🔥 reset sort
+
+        loadProducts();
+    }
+
+
+    function selectGenre(id) {
+        filter.genre = id;
+        filter.brand = null;       // 🔥 reset brand
+        filter.page = 1;
+        filter.sort = "default";
+
+        loadProducts();
+    }
+
+
+    function changeSort(type) {
+        filter.sort = type || "default";
+        filter.page = 1;
+        loadProducts();
+    }
+
+    
+
+    // Load sản phẩm
+    // Load sản phẩm theo bộ lọc hiện tại
+    function loadProducts() {
+
+        // Tạo object gửi lên API, chỉ gửi những param cần thiết
+        let sendData = {
+            page: filter.page
+        };
+
+        if (filter.brand !== null) sendData.brand = filter.brand;
+        if (filter.genre !== null) sendData.genre = filter.genre;
+        if (filter.sort && filter.sort !== "default") sendData.sort = filter.sort;
+
+        $.ajax({
+            url: "/api/productapi",
+            method: "GET",
+            data: sendData,
+            success: function (res) {
+
+                console.log("Response API:", res);   // xem thử trong Console
+
+                // Nếu không có dữ liệu
+                if (!res || !res.data || res.data.length === 0) {
+                    $("#productGrid").html("<p>Không có sản phẩm phù hợp.</p>");
+                    $("#pagination").html("");
+                    return;
+                }
+
+                // -------- Render SẢN PHẨM ----------
+                let html = "";
+                res.data.forEach(p => {
+                    html += `
+                    <a class="product-card" href="/Product/Details/${p.product_id}">
+                        <img src="${p.image}" />
+                        <div class="product-name">${p.product_name}</div>
+                        <div class="product-price">${p.price.toLocaleString()} ₫</div>
+                    </a>`;
+                });
+
+                $("#productGrid").html(html);
+
+                // -------- Render PHÂN TRANG ----------
+                let pag = "";
+                for (let i = 1; i <= res.totalPage; i++) {
+                    pag += `
+                    <a onclick="goPage(${i})"
+                       style="padding:8px 14px; border:1px solid #ddd; margin:3px; border-radius:6px;
+                              background:${i === res.page ? 'darkgreen' : 'white'};
+                              color:${i === res.page ? 'white' : 'black'};
+                              cursor:pointer;">
+                        ${i}
+                    </a>
+                `;
+                }
+                $("#pagination").html(pag);
+            },
+            error: function (err) {
+                console.log("Lỗi API:", err);
+            }
+        });
+    }
+
+
+    // Chuyển trang
+    function goPage(i) {
+        filter.page = i;
+        loadProducts();
+    }
+
+    $(document).ready(function () {
+        loadFilters();   // load brand + genre
+        loadProducts();  // load danh sách ban đầu
+    });
+
+
+</script>

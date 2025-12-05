@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Ajax";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+<!-- NƠI HIỂN THỊ SẢN PHẨM -->
+<div id="productList" style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: "/api/productapi",
+            method: "GET",
+            success: function (res) {
+
+                let html = "";
+
+                res.data.forEach(p => {
+                    html += `
+                        <a href="/Product/Details/${p.product_id}"
+                           style="padding:12px; border:1px solid #ddd; border-radius:10px; text-decoration:none; color:black; display:block;">
+
+                            <img src="${p.image}" style="width:100%; height:180px; object-fit:contain;" />
+                            <div style="font-weight:600; margin-top:5px;">${p.product_name}</div>
+                            <div style="color:red; font-weight:bold;">${p.price.toLocaleString()} ₫</div>
+                        </a>
+                    `;
+                });
+
+                $("#productList").html(html);
+            },
+
+            error: function (err) {
+                console.log("Lỗi API:", err);
+            }
+        });
+
+    });
+</script>
+
